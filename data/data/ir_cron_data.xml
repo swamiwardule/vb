@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_status_counter" model="ir.cron">
+            <field name="name">Project: Check status counter</field>
+            <field name="model_id" ref="model_project_checklist_line"/>
+            <field name="state">code</field>
+            <field name="code">model.is_days_difference_for_status_count()</field>
+            <field name='interval_number'>1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+        <record id="ir_cron_status__green_flag_counter" model="ir.cron">
+            <field name="name">Project: Check green flag status counter</field>
+            <field name="model_id" ref="model_project_activity_type"/>
+            <field name="state">code</field>
+            <field name="code">model.check_count_for_green()</field>
+            <field name='interval_number'>1</field>
+            <field name="interval_type">days</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+    </data>
+
+</odoo>

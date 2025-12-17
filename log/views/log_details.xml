@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_pcll_form">
+            <field name="name">project.checklist.line.log.form</field>
+            <field name="model">project.checklist.line.log</field>
+            <field name="arch" type="xml">
+                <form>
+                <sheet>
+                    <header>
+                        <button name="action_set_user_from_role"
+                                string="Set User from Role"
+                                type="object"
+                                class="btn-primary"
+                               />
+                    </header>
+
+                    <group>
+                        
+                        <group>
+                            <field name="datetime"/>
+                            <field name="user_id"/>
+                            <field name="status"/>
+                            <field name="role"/>
+                            <field name="project_id"/>
+                            <field name="activity_type_id"/>
+                            <field name="mi_id"/>
+                            <field name="mi_line_id"/>
+
+                           
+                        </group>
+                        <group>
+                         <field name="checklist_template_id"/>
+                            <field name="is_pass"/>
+                            <field name="reason"/>
+                            <field name="seq_no"/>
+                            <field name="overall_remarks"/>
+                            <field name="line_id"/>
+                        </group>
+                    </group>
+                            <field name="image_ids"/>
+
+                    
+                    <notebook>
+                        <page string="image">
+                        <field name="checklist_line_log_line" >
+                            <tree editable="bottom">
+                                <field name="url" />
+                            </tree>
+                        </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_pcll_tree">
+            <field name="name">project.checklist.line.log.tree</field>
+            <field name="model">project.checklist.line.log</field>
+            <field name="arch" type="xml">
+                <tree string="PCLL">
+                        <field name="datetime"/>
+                        <field name="user_id"/>
+                        <field name="role"/>
+                        <field name="status"/>
+                        <field name="project_id"/>
+                        <field name="activity_type_id"/>
+                        <field name="checklist_template_id"/>
+                        <field name="is_pass"/>
+                        <field name="reason"/>
+                        <field name="seq_no"/>
+                </tree>
+            </field>
+    </record>
+
+        <record id="action_open_pcll_details" model="ir.actions.act_window">
+            <field name="name">Project Checklist Line Log</field>
+            <field name="res_model">project.checklist.line.log</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_pcll_tree"/>
+        </record>
+
+    <menuitem id="root_log_detail"
+        name="Project Management Log(s)"
+     
+        groups="base.group_system"
+        sequence="30">
+        <menuitem id="pm_log"
+                    name="Log"
+                    sequence="10" action="action_open_pcll_details" />
+    </menuitem>
+    
+
+    <!-- <menuitem id="root_log_details" name="Log Details" groups="base.group_system"  />
+  
+
+    <menuitem id="menu_pcll_details" name="PCLL" parent="root_log_details" action="action_open_pcll_details" /> -->
+
+
+    </data>
+</odoo>
+		

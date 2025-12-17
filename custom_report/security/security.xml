@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Define the category for the group (optional) -->
+    <record id="my_custom_category" model="ir.module.category">
+        <field name="name">Reports Category</field>
+    </record>
+
+    <!-- Define the Report Access group -->
+    <record id="group_report_access" model="res.groups">
+        <field name="name">Report Access</field>
+        <field name="category_id" ref="my_custom_category"/>
+    </record>
+</odoo>

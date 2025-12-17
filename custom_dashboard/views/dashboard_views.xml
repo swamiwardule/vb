@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <record id="action_dashboard" model="ir.actions.client">
+            <field name="name">Dashboard</field>
+            <field name="tag">hr_dashboard</field>
+        </record>
+
+        <!-- Menu item for the main dashboard -->
+        <menuitem id="main_menu_dashboard" name="Dashboard" web_icon="custom_dashboard.static/description/dashboard_icon.png" sequence="-100" groups="custom_dashboard.group_dashboard_access"/>
+
+        <!-- Menu item for the Kanban view -->
+        <menuitem id="menu_project_info_kanban" name="Project Kanban" parent="main_menu_dashboard" action="custom_dashboard.project_info_kanban_action" sequence="10" groups="custom_dashboard.group_dashboard_access"/>
+
+        <!-- Menu item for the dashboard -->
+        <menuitem id="menu_dashboard" name="Dashboard" parent="main_menu_dashboard" action="action_dashboard" sequence="2" groups="custom_dashboard.group_dashboard_access"/>
+
+    </data>
+</odoo>

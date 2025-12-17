@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="work_done_activities_tree_view" model="ir.ui.view">
+        <field name="name">work.done.activity.tree.view</field>
+        <field name="model">work.done.activity</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Work Done Activity" create="0">
+                <field name="TenantId"/>
+                <field name="FiscalYearId"/>
+                <field name="BUId"/>
+                <field name="EntryTypeId"/>
+                <field name="DocumentNo"/>
+                <field name="DocumentDate"/>
+                <field name="DocumentDateUTC" optional="hide"/>
+                <field name="ProvisionalDocNo" optional="hide"/>
+                <field name="ProvisionalDocType" optional="hide"/>
+                <field name="PrefixType" optional="hide"/>
+                <field name="WorkOrderId" optional="hide"/>
+                <field name="PartyLedger" optional="hide"/>
+                <field name="PartyMainLedger" optional="hide"/>
+                <field name="IsOpenWorkDone" optional="hide"/>
+                <field name="EntrySerialNo" optional="hide"/>
+                <field name="BillOrItemWiseBillingTerm" optional="hide"/>
+                <field name="POSStateId" optional="hide"/>
+                <field name="POSGSTStateId" optional="hide"/>
+                <field name="PaymentTermGroupId" optional="hide"/>
+                <field name="CategoryId" optional="hide"/>
+                <field name="GSTINId" optional="hide"/>
+                <field name="Amount" optional="hide"/>
+                <field name="IsImported" optional="hide"/>
+                <field name="WorkflowId" optional="hide"/>
+                <field name="ApprovalLevel" optional="hide"/>
+                <field name="ApproverId" optional="hide"/>
+                <field name="StatusUpdatedOn" optional="hide"/>
+                <field name="ApprovalStatus" optional="hide"/>
+                <field name="UIID" optional="hide"/>
+                <field name="Attachments" optional="hide"/>
+                <field name="SubProjectId" optional="hide"/>
+                <field name="BudgetId" optional="hide"/>
+                <field name="GrossAmount" optional="hide"/>
+                <field name="NetAmount" optional="hide"/>
+                <field name="EquipmentItemId" optional="hide"/>
+                <field name="RegistrationNo" optional="hide"/>
+                <field name="WorkDoneRemark" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_work_done_activities" model="ir.actions.act_window">
+        <field name="name">Work Done Activity</field>
+        <field name="res_model">work.done.activity</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p>Create work done activity</p>
+        </field>
+    </record>
+
+    <record id="work_order_activities_tree_view" model="ir.ui.view">
+        <field name="name">work.order.activity.tree.view</field>
+        <field name="model">work.order.activity</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Work Order Activity" create="0">
+                <field name="TenantId"/>
+                <field name="WorkOrderId"/>
+                <field name="AmendmentType"/>
+                <field name="RefId"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_work_order_activities" model="ir.actions.act_window">
+        <field name="name">Work Order Activity</field>
+        <field name="res_model">work.order.activity</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p>Create work order activity</p>
+        </field>
+    </record>
+
+    <menuitem id="root_fetch_menu" name="Fetch Data" sequence="70" parent="project_menu_root"/>
+    <menuitem id="work_done_menu" name="Work Done With Activity" sequence="71" parent="root_fetch_menu"
+              action="action_work_done_activities"/>
+    <menuitem id="work_order_menu" name="Work Order With Activity" sequence="72" parent="root_fetch_menu"
+              action="action_work_order_activities"/>
+</odoo>

@@ -1,0 +1,15 @@
+<odoo>
+    <!-- Hide default Print dropdown only for template.detail model -->
+    <record id="hide_print_action_for_template_detail" model="ir.ui.view">
+        <field name="name">hide.print.for.template.detail</field>
+        <field name="model">template.detail</field>
+        <field name="inherit_id" ref="web.view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[contains(@class, 'o_cp_buttons')]" position="inside">
+                <xpath expr="//button[contains(@class, 'o_list_print')]" position="attributes">
+                    <attribute name="style">display: none !important;</attribute>
+                </xpath>
+            </xpath>
+        </field>
+    </record>
+</odoo>

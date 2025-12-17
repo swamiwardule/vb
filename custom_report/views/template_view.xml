@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_template_detail_form" model="ir.ui.view">
+        <field name="name">template.detail.form</field>
+        <field name="model">template.detail</field>
+        <field name="arch" type="xml">
+            <form string="Wizard Report" print_visible="false">
+                <header>
+                    <button name="print_report" type="object" string="Print Report" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="tower_id"/>
+                        <field name="selection"/>
+                        <field name="floor_id" attrs="{'invisible': [('selection', '!=', 'floor')]}"/>
+                        <field name="flat_id" attrs="{'invisible': [('selection', '!=', 'flat')]}"/>
+                        <field name="activity_id"/>
+                        <field name="location"/>
+                        <field name="date"/>
+                    </group>
+                    <group>
+                        <field name = "checklines" invisible="1" />
+                        <field name = "user_maker" invisible="1" />
+                        <field name = "user_checker" invisible="1" />
+                        <field name = "user_approver" invisible="1" />
+
+                    </group>
+                    <footer>
+                        <button name="clear_fields" type="object" string="Clear Fields" class="btn btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_template_detail" model="ir.actions.act_window">
+        <field name="name">Details</field>
+        <field name="res_model">template.detail</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+
+
+    <menuitem id="report_id" sequence="20" name="Reports" action="action_template_detail" groups="custom_report.group_report_access"/>
+
+
+</odoo>
+
+
+
+
+
+<!--    
+    def fetch_checklist_data(self):
+        if not self.activity_id:
+            raise ValueError("Please select an activity first.")
+        
+        project_id = self.name.id
+        tower_id = self.tower_id.id
+        activity_id = self.activity_id.id
+
+        domain = [
+            ('project_activity_id', '=', activity_id),
+            ('project_id', '=', project_id),
+            ('tower_id', '=', tower_id)
+        ]
+        
+        activities = self.env['project.activity'].search(domain)
+        _logger.warning("Found activities: %s", activities)   
+
+        pre_checklist_lines = []
+        during_checklist_lines = []
+        post_checklist_lines = []
+
+        for activity_type in self.activity_id.activity_type_ids:
+            _logger.info("activity type name : %s", activity_type.project_activity_type_id.name)
+
+            for index, checklist in enumerate(activity_type.project_activity_type_id.checklist_ids):
+                _logger.info("checklist: %s", checklist.checklist_template_id.name)
+
+                is_pass = checklist.is_pass
+                reason = checklist.reason
+
+                checklist_info = {
+                    "index": index + 1,
+                    "name": checklist.checklist_template_id.name, 
+                    "is_pass": is_pass,                               
+                    "reason": reason                                 
+                }
+
+                activity_name = activity_type.project_activity_type_id.name
+                if "during" in activity_name.lower():
+                    # Group "During" checklists by their subtype (like "During 1", "During 2", etc.)
+                    subtype_name = activity_type.name  # This will be "During 1", "During 2", etc.
+                    if subtype_name not in during_checklist_lines:
+                        during_checklist_lines[subtype_name] = []
+                    during_checklist_lines[subtype_name].append(checklist_info)
+                if "pre" in activity_name.lower():
+                    pre_checklist_lines.append(checklist_info)
+                elif "post" in activity_name.lower():
+                    post_checklist_lines.append(checklist_info)
+
+        self.pre_checklist_lines = json.dumps(pre_checklist_lines)
+        self.during_checklist_lines = json.dumps(during_checklist_lines)
+        self.post_checklist_lines = json.dumps(post_checklist_lines)
+
+        return {
+            'pre_checklist_lines': pre_checklist_lines,
+            'during_checklist_lines': during_checklist_lines,
+            'post_checklist_lines': post_checklist_lines,
+        } -->

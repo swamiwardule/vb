@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  Kanban view for project info  -->
+<record id="project_info_kanban_view" model="ir.ui.view">
+    <field name="name">project.info.kanban</field>
+    <field name="model">project.info</field>
+    <field name="arch" type="xml">
+        <kanban>
+            <field name="name"/>
+            <field name="project_progress_bar"/>
+            <templates>
+                <t t-name="kanban-box">
+                    <div t-att-class="'o_kanban_card ' + (record.project_rating.raw_value >= 8 ? 'project-high' : (record.project_rating.raw_value >= 5 ? 'project-medium' : 'project-low'))" style="border: 1px solid #90D5FF; padding: 5px; margin-bottom: 5px; border-radius: 2px;">
+                        <!-- Header Section -->
+                        <div class="o_kanban_card_section o_kanban_header">
+                        <div t-attf-class="o_kanban_card_header" style="border-left: 2px; padding-left: 5px; margin-bottom: 5px;">
+                                <!-- Project Name -->
+<!--                                    <field name="project_progress_bar" widget="progressbar" style="text-align: right; margin-left: 10px;"/>-->
+                            <h6 style="font-weight: bold; color: #000;">
+                                <field name="name" id="name"/>
+                                <field name="project_progress_bar" widget="progressbar" style="padding-left: 20px;"/>
+                            </h6>
+<!--                                    <field name="project_progress_bar" widget="progressbar" style="height: 10px; width: 100px;"/>-->
+                            </div>
+                        </div>
+
+                        <!-- Flags Section -->
+                        <div style="margin-top: 5px; display: flex; justify-content: space-between;">
+                            <div><strong>NC:</strong> <b><field name="nc_count"/></b></div>
+                            <div><strong>Yellow:</strong> <b><field name="yellow_flag_count"/></b></div>
+                            <div><strong>Orange:</strong> <b><field name="orange_flag_count"/></b></div>
+                            <div><strong>Red:</strong> <b><field name="red_flag_count"/></b></div>
+                            <div><strong>Green:</strong> <b><field name="green_flag_count"/></b></div>
+                        </div>
+
+                        <hr style="margin: 10px 0; border: 1px solid #0c0c0c;"/>
+                        <!-- Pending and Completed Stats -->
+                        <div style="margin-top: 5px; display: flex; justify-content: space-between;">
+                            <div><strong>MC:</strong> <b><field name="maker_completed_count"/></b></div>
+                            <div><strong>CC:</strong> <b><field name="checker_completed_count"/></b></div>
+                            <div><strong>AC:</strong> <b><field name="approver_completed_count"/></b></div>
+
+                            <div><strong>MP:</strong> <b><field name="maker_pending_count"/></b></div>
+                            <div><strong>CP:</strong> <b><field name="checker_pending_count"/></b></div>
+<!--                            <div><strong>MC:</strong> <b><field name="maker_completed_count"/></b></div>-->
+<!--                            <div><strong>CC:</strong> <b><field name="checker_completed_count"/></b></div>-->
+<!--                            <div><strong>AC:</strong> <b><field name="approver_completed_count"/></b></div>-->
+                        </div>
+                        <hr style="margin: 10px 0; border: 1px solid #0c0c0c;"/>
+                        <!-- Total CMA and Rating -->
+                        <div style="margin-top: 10px; display: flex; justify-content: space-between;">
+                            <div><strong>AP:</strong> <b><field name="approver_pending_count"/></b></div>
+                            <div><strong>Total P:</strong> <b><field name="total_cma_pending"/></b></div>
+                            <div><strong>Total C:</strong> <b><field name="total_cma_complete"/></b></div>
+                            <div><strong>Rating:</strong> <b><field name="project_rating"/></b> / 10</div>
+                        </div>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
+</record>
+
+    <record id="project_info_tree_id" model="ir.ui.view">
+        <field name="name">project.info.tree</field>
+        <field name="model">project.info</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Projects">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_info_from_id" model="ir.ui.view">
+        <field name="name">project.info.form</field>
+        <field name="model">project.info</field>
+        <field name="arch" type="xml">
+            <form string="Project">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button  class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"  style="text-align: center;">
+                                    <field name="green_flag_count"/>
+                                </span>
+                                <span class="o_stat_text">
+                                    Green Flag
+                                </span>
+                            </div>
+                        </button>
+                        <button  class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"  style="text-align: center;">
+                                    <field name="nc_count"/>
+                                </span>
+                                <span class="o_stat_text">
+                                    NC
+                                </span>
+                            </div>
+                        </button>
+                        <button  class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"  style="text-align: center;">
+                                    <field name="yellow_flag_count"/>
+                                </span>
+                                <span class="o_stat_text">
+                                    Yellow Flag
+                                </span>
+                            </div>
+                        </button>
+                        <button  class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value"  style="text-align: center;">
+                                    <field name="orange_flag_count"/>
+                                </span>
+                                <span class="o_stat_text">
+                                    Orange Flag
+                                </span>
+                            </div>
+                        </button>
+                        <button  class="oe_stat_button">
+                            <div class="o_stat_info">
+                                <span class="o_stat_value" style="text-align: center;">
+                                    <field name="red_flag_count"/>
+                                </span>
+                                <span class="o_stat_text">
+                                    Red Flag
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                    <field name="image" widget='image' class="oe_avatar"
+                           options='{"zoom": true, "preview_image": "image"}'/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                          <group>
+                                <field name="assigned_to_ids" widget="many2many_tags" options="{'no_create': True}" string="Assigned User"/>
+                         </group>
+                          <group  >
+                            <field name="lat"/>
+                            <field name="longi"/>
+                        </group>
+                        <group >
+                            <field name="project_progress_bar"/>
+                        </group>
+                        <group >
+                            
+                            <button name="set_towers" string="Set Tower" type="object"  class="btn-primary"/>
+                            <!-- <button name="set_towers_two" string="Test Functionality(Do not press this button)" type="object"  class="btn-primary"/> -->
+                        </group>
+                        <group >
+                            
+                            <field name="project_rating" />
+                            <field name="user_checker" />
+                            <field name="user_approver" />
+                        </group>
+                        
+                        <group>
+                            <field name="activity_draft_count" invisible="1"/>
+                            <field name="activity_submit_count" invisible="1"/>
+                            <field name="activity_approved_count" invisible="1"/>
+                            <field name="activity_checked_count" invisible="1"/>
+                            <field name="maker_user_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="checker_user_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="approver_user_ids" widget="many2many_tags" invisible="1"/>
+                        </group>
+
+
+                        <group>
+                            <!-- <button name="generate_seq_floors" string="Generate Sequence For Floors" type="object" /> -->
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Details Line" name="details_lines">
+                            <field name="project_details_line">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="tower_id" widget="many2many_tags"/>
+                                    <!--                                    <field name="tower_id"/>-->
+                                    <field name="image" widget='image' class="oe_avatar"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Tower" >
+                            <field name="project_info_tower_line_temp">
+                                <tree editable="bottom">
+                                     <field name="name" invisible="1"/>
+                                     <field name="tower_id" readonly="1" />
+                                     <field name="project_tower_progress"/>
+                                      <field name="project_nc"/>
+                                      <field name="project_yellow"/>
+                                      <field name="project_orange"/>
+                                      <field name="project_red"/>
+                                     <field name="project_green"/>
+                                    <button name="generate_seq_flats_floors" string="Generate Sequence" class="btn-primary" type="object" />
+
+                                </tree>
+                            </field>
+                        </page>
+                                <!-- <page string="Material Inspection" >
+                            <field name="tower_insp_line">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                     <field name="tower_id"/>
+                                </tree>
+                            </field>
+                        </page> -->
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_project_info" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">project.info</field>
+        <field name="view_mode">kanban,tree,form,graph,pivot</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create and manage Projects</p>
+        </field>
+    </record>
+
+
+
+    <record id="res_users_preferences_inherit" model="ir.ui.view">
+        <field name="name">res.users.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form" />
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='active']" position="after">
+                <field name="lat" />
+                <field name="longi" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

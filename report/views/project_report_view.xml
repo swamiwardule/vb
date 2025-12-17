@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_project_report_form">
+            <field name="name">project.report.form</field>
+            <field name="model">project.report</field>
+            <field name="arch" type="xml">
+                <form >
+                <sheet>
+                    <group>
+                        <field name="project_info_id"/>
+                        <field name="tower_ids" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button name="action_print_report" type="object" string="Print" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record id="action_project_report" model="ir.actions.act_window">
+            <field name="name">Project Report</field>
+            <field name="res_model">project.report</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_project_report_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_project_report" name="Project Report" action="action_project_report"/>
+
+    </data>
+</odoo>
+		

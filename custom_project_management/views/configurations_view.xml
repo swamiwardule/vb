@@ -1,0 +1,1056 @@
+<odoo>
+
+
+    <record id="action_perform_operation_submit" model="ir.actions.server">
+        <field name="name">Submit</field>
+        <field name="model_id" ref="model_project_activity_type"/>
+        <field name="state">code</field>
+        <field name="code">model.action_submit()</field>
+    </record>
+
+    <record model="ir.actions.server" id="action_submit_records">
+        <field name="name">Submit</field>
+        <field name="model_id" ref="custom_project_management.model_project_activity_type"/>
+        <field name="binding_model_id" ref="custom_project_management.model_project_activity_type"/>
+        <field name="state">code</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="code">
+           action = records.action_submit()
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="action_check_records">
+        <field name="name">Check</field>
+        <field name="model_id" ref="custom_project_management.model_project_activity_type"/>
+        <field name="binding_model_id" ref="custom_project_management.model_project_activity_type"/>
+        <field name="state">code</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="code">
+           action = records.action_check()
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="action_approve_records">
+        <field name="name">Approve</field>
+        <field name="model_id" ref="custom_project_management.model_project_activity_type"/>
+        <field name="binding_model_id" ref="custom_project_management.model_project_activity_type"/>
+        <field name="state">code</field>
+        <field name="binding_view_types">list,form</field>
+        <field name="code">
+           action = records.action_approve()
+        </field>
+    </record>
+
+
+
+    <record id="project_tower_tree_id" model="ir.ui.view">
+        <field name="name">project.tower.tree</field>
+        <field name="model">project.tower</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Project Tower">
+                <field name="name"/>
+                <field name="project_id" string="Project" required="1"/>
+                <field name="tower_progress_percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_tower_from_id" model="ir.ui.view">
+        <field name="name">project.tower.form</field>
+        <field name="model">project.tower</field>
+        <field name="arch" type="xml">
+            <form string="Project Tower">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="project_id" required="1"/>
+                            <field name="tower_progress_percentage"/>
+                            <field name="assigned_to_ids" widget="many2many_tags" options="{'no_create': True}" string="Assigned User"/>
+
+                        </group>
+                        <!--                        <group>-->
+                        <!--                            <field name="floor_id"/>-->
+                        <!--                            <field name="floor_id"/>-->
+                        <!--                        </group>-->
+                    </group>
+                    <notebook>
+                        <page string="Floor" name="Floor">
+                            <field name="tower_floor_line_id">
+                                <tree>
+
+                                    <!-- <tree editable="bottom"> -->
+                                    <!-- <field name="sequence"/> -->
+
+                                    <!-- <field name="sequence" widget="handle"/> -->
+                                    <field name="name"/>
+                                    <field name="floor_progress_percentage"/>
+                                    <field name="floors_nc"/>
+                                    <field name="floors_yellow"/>
+                                    <field name="floors_orange"/>
+                                    <field name="floors_red"/>
+                                    <field name="floors_green"/>
+                                </tree>
+                                <form string="Project Floors">
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="project_floor_id"/>
+                                                <field name="name" required="1"/>
+                                                <field name="floor_id" string="Floor Name"/>
+                                                <field name="floor_progress_percentage"/>
+                                            </group>
+                                            <!--  <group>
+                            <field name="tower_id" required="1"/>
+                        </group> -->
+                                        </group>
+                                        <notebook>
+                                            <page string="Activity" name="activity">
+                                                <field name="activity_ids">
+                                                    <tree >
+                                                        <!-- <field name="activity_type_ids"/> -->
+                                                        <field name="name"/>
+                                                        <field name="status"/>
+                                                        <field name="description" invisible="1"/>
+                                                        <field name="progress_percentage"/>
+                                                        <field name="act_nc"/>
+                                                        <field name="act_yellow"/>
+                                                        <field name="act_orange"/>
+                                                        <field name="act_red"/>
+                                                        <field name="act_green"/>
+                                                        <!-- <field name="index_no"/> -->
+
+                                                    </tree>
+                                                    <form>
+                                                        <group>
+                                                            <group>
+                                                                <field name="project_activity_id"/>
+                                                                <field name="name"/>
+
+                                                                <field name="description" invisible="1"/>
+                                                                <field name="progress_percentage"/>
+                                                                <!-- <field name="index_no"/> -->
+
+                                                            </group>
+                                                        </group>
+                                                        <notebook>
+                                                            <page string="CheckList">
+                                                                <field name="activity_type_ids">
+                                                                    <tree>
+                                                                        <field name="name"/>
+                                                                        <field name="status"/>
+                                                                        <field name="progress_percentage"/>
+                                                                        <field name="act_type_nc"/>
+                                                                        <field name="act_type_yellow"/>
+                                                                        <field name="act_type_orange"/>
+                                                                        <field name="act_type_red"/>
+                                                                        <field name="act_type_green"/>
+                                                                        <!-- <field name="index_no" /> -->
+
+                                                                        <!-- <field name=""/> -->
+                                                                    </tree>
+                                                                    <form>
+                                                                        <group>
+                                                                            <group>
+                                                                                <!-- <field name="project_activity_type_id"/>
+                                                       <field name="project_activity_type_id"/> -->
+                                                                                <!-- NEW -->
+
+                                                                                <field name="project_actn_id"/>
+                                                                                <field name="name"/>
+                                                                                <field name="status"/>
+                                                                                <field name="progress_percentage"/>
+                                                                            </group>
+                                                                            <group>
+                                                                                <field name="seq_no"/>
+                                                                            </group>
+                                                                        </group>
+                                                                        <notebook>
+                                                                            <page string="checklist">
+                                                                                <field name="checklist_ids">
+                                                                                    <tree>
+                                                                                        <field name="checklist_template_id"/>
+                                                                                        <field name="reason"/>
+                                                                                        <field name="image_ids">
+                                                                                        </field>
+                                                                                        <field name="project_line_nc"/>
+                                                                                        <field name="project_line_yellow"/>
+                                                                                        <field name="project_line_orange"/>
+                                                                                        <field name="project_line_red"/>
+                                                                                        <field name="project_line_cre_date" invisible="1"/>
+                                                                                        <field name="is_pass"/>
+                                                                                        <field name="seq_no" invisible="1"/>
+                                                                                        <field name="submitted" invisible="1"/>
+
+
+                                                                                    </tree>
+                                                                                    <form>
+                                                                                        <group>
+                                                                                            <group>
+                                                                                                <field name="checklist_template_id"/>
+
+                                                                                                <field name="is_pass"/>
+                                                                                                <field name="reason"/>
+                                                                                            </group>
+                                                                                        </group>
+                                                                                        <notebook>
+                                                                                            <page string="image">
+                                                                                                <field name="image_ids">
+                                                                                                    <tree editable="bottom">
+                                                                                                        <field name="image" widget="image" class="oe_avatar"/>
+                                                                                                    </tree>
+                                                                                                </field>
+                                                                                            </page>
+                                                                                        </notebook>
+                                                                                    </form>
+                                                                                </field>
+                                                                            </page>
+                                                                        </notebook>
+                                                                    </form>
+                                                                </field>
+                                                            </page>
+                                                        </notebook>
+                                                    </form>
+                                                </field>
+                                            </page>
+                                        </notebook>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Flat" name="Flat">
+                            <field name="tower_flat_line_id">
+                                <tree>
+
+                                    <!-- <tree editable="bottom"> -->
+                                    <!-- <field name="sequence"/> -->
+
+                                    <!-- <field name="sequence" widget="handle"/> -->
+                                    <field name="name"/>
+
+                                    <field name="flats_progress_percentage"/>
+                                    <field name="flats_nc"/>
+                                    <field name="flats_red"/>
+                                    <field name="flats_orange"/>
+                                    <field name="flats_yellow"/>
+                                    <field name="flats_green"/>
+
+                                </tree>
+                                <form string="Project Flats">
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="project_flat_id" required="1"/>
+                                                <field name="name" required="1"/>
+                                                <field name="flats_progress_percentage"/>
+
+                                                <!-- <field name="tower_id" required="1"/> -->
+                                            </group>
+                                            <group>
+                                                <field name="flat_id" string="Flat Num"/>
+                                                <field name="floor_id"/>
+
+                                            </group>
+                                        </group>
+                                        <notebook>
+                                            <page string="Activity" name="activity">
+                                                <field name="activity_ids">
+                                                    <tree >
+                                                        <!-- <field name="activity_type_ids"/> -->
+                                                        <field name="name"/>
+                                                        <field name="status"/>
+
+                                                        <field name="description" invisible="1"/>
+                                                        <field name="progress_percentage"/>
+                                                        <field name="act_nc"/>
+                                                        <field name="act_red"/>
+                                                        <field name="act_orange"/>
+                                                        <field name="act_yellow"/>
+                                                        <field name="act_green"/>
+                                                    </tree>
+                                                    <form>
+                                                        <group>
+                                                            <group>
+                                                                <field name="project_activity_id"/>
+                                                                <field name="name"/>
+                                                                <field name="description" invisible="1"/>
+                                                                <field name="progress_percentage"/>
+                                                            </group>
+                                                        </group>
+                                                        <notebook>
+                                                            <page string="CheckList">
+                                                                <field name="activity_type_ids">
+                                                                    <tree >
+                                                                        <field name="name"/>
+                                                                        <field name="status"/>
+                                                                        <field name="progress_percentage"/>
+                                                                        <field name="act_type_nc"/>
+                                                                        <field name="act_type_red"/>
+                                                                        <field name="act_type_orange"/>
+                                                                        <field name="act_type_yellow"/>
+                                                                        <field name="act_type_green"/>
+                                                                        <!-- <field name="index_no" /> -->
+
+                                                                        <!-- <field name=""/> -->
+                                                                    </tree>
+                                                                    <form>
+                                                                        <group>
+                                                                            <group>
+                                                                                <!-- NEW -->
+                                                                                <field name="project_actn_id"/>
+                                                                                <field name="name"/>
+                                                                                <field name="status"/>
+                                                                                <field name="act_responsible_person"/>
+                                                                                <field name="progress_percentage"/>
+                                                                            </group>
+                                                                            <group>
+                                                                                <field name="seq_no"/>
+                                                                            </group>
+                                                                        </group>
+                                                                        <notebook>
+                                                                            <page string="checklist">
+                                                                                <field name="checklist_ids">
+                                                                                    <tree >
+                                                                                        <field name="checklist_template_id"/>
+                                                                                        <field name="reason"/>
+                                                                                        <field name="project_line_nc"/>
+                                                                                        <field name="project_line_yellow"/>
+                                                                                        <field name="project_line_orange"/>
+                                                                                        <field name="project_line_red"/>
+                                                                                        <field name="project_line_cre_date" invisible="1"/>
+                                                                                        <field name="image_ids">
+
+                                                                                        </field>
+                                                                                        <field name="is_pass"/>
+                                                                                    </tree>
+                                                                                    <form>
+                                                                                        <group>
+                                                                                            <group>
+                                                                                                <field name="checklist_template_id"/>
+                                                                                                <field name="project_line_cre_date"/>
+                                                                                                <field name="is_pass"/>
+                                                                                                <field name="reason"/>
+                                                                                            </group>
+                                                                                        </group>
+                                                                                        <notebook>
+                                                                                            <page string="image">
+                                                                                                <field name="image_ids">
+                                                                                                    <tree editable="bottom">
+                                                                                                        <field name="image" widget="image" class="oe_avatar"/>
+                                                                                                    </tree>
+                                                                                                </field>
+                                                                                            </page>
+                                                                                        </notebook>
+                                                                                    </form>
+                                                                                </field>
+
+                                                                            </page>
+                                                                        </notebook>
+                                                                    </form>
+                                                                </field>
+                                                            </page>
+                                                        </notebook>
+                                                    </form>
+                                                </field>
+                                            </page>
+                                        </notebook>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_floors_tree_id" model="ir.ui.view">
+        <field name="name">project.floors.tree</field>
+        <field name="model">project.floors</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Project Floors">
+                <field name="name"/>
+                <field name="floor_id"/>
+                <field name="floor_progress_percentage"/>
+                <field name="tower_id" required="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_floors_from_id" model="ir.ui.view">
+        <field name="name">project.floors.form</field>
+        <field name="model">project.floors</field>
+        <field name="arch" type="xml">
+            <form string="Project Floors">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="floor_id" />
+                            <field name="floor_progress_percentage" />
+
+                        </group>
+                        <group>
+                            <field name="tower_id" required="1"/>
+                            <field name="project_id" required="1"/>
+
+
+                        </group>
+                    </group>
+                    <!-- <notebook>
+                        <page string="Activity" name="activity">
+                            <field name="activity_ids">
+                                <tree >
+
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="project_activity_name_id"/>
+                                            <field name="name"/>
+                                            <field name="description"/>
+                                        </group>
+                                    </group> -->
+                    <!-- <notebook>
+                                        <page string="CheckList">
+                                            <field name="activity_type_ids">
+                                                <tree >
+                                                <field name="name"/>
+
+                                            </tree>
+                                            <form>
+                                                <group>
+                                                    <group>
+                                                        <field name="name"/>
+                                                    </group>
+                                                </group>
+                                                <notebook>
+                                                    <page string="checklist">
+                                                        <field name="checklist_ids">
+                                                            <tree >
+                                                                <field name="checklist_template_id"/>
+                                                                <field name="reason"/>
+                                                                <field name="image_ids">
+
+                                                                </field>
+                                                                <field name="is_pass"/>
+                                                            </tree>
+                                                             <form>
+                                                                <group>
+                                                                    <group>
+                                                                        <field name="checklist_template_id"/>
+
+                                                                        <field name="is_pass"/>
+                                                                        <field name="reason"/>
+                                                                    </group>
+                                                                </group>
+                                                                <notebook>
+                                                                    <page string="image">
+                                                                        <field name="image_ids">
+                                                                    <tree editable="bottom">
+                                                                        <field name="image" widget="image" class="oe_avatar"/>
+                                                                    </tree>
+                                                                </field>
+                                                                    </page>
+                                                                </notebook>
+                                                            </form>
+                                                        </field>
+                                                    </page>
+                                                </notebook>
+                                            </form>
+                                            </field>
+                                        </page>
+                                    </notebook> -->
+                    <!-- </form>
+                            </field>
+                        </page>
+                    </notebook>  -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_flats_tree_id" model="ir.ui.view">
+        <field name="name">project.flats.tree</field>
+        <field name="model">project.flats</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Project Flats">
+                <field name="name"/>
+                <field name="tower_id" required="1"/>
+                <field name="flat_id"/>
+                <field name="flats_progress_percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_flats_from_id" model="ir.ui.view">
+        <field name="name">project.flats.form</field>
+        <field name="model">project.flats</field>
+        <field name="arch" type="xml">
+            <form string="Project Flats">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="tower_id" required="1"/>
+                            <field name="project_id" />
+                            <field name="flats_progress_percentage" />
+
+
+                        </group>
+                        <group>
+
+                            <field name="flat_id" string="Flat Num"/>
+                            <field name="floor_id" />
+
+
+                        </group>
+                    </group>
+                    <!-- <notebook>
+                        <page string="Activity" name="activity">
+                            <field name="activity_ids">
+                                <tree >
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="project_activity_name_id"/>
+                                            <field name="name"/>
+                                            <field name="description"/>
+                                        </group>
+                                    </group>
+                                     <notebook>
+                                        <page string="CheckList">
+                                            <field name="activity_type_ids">
+                                                 <tree >
+                                                <field name="name"/>
+
+                                            </tree>
+                                            <form>
+                                                <group>
+                                                    <group>
+                                                        <field name="name"/>
+                                                    </group>
+                                                </group>
+                                                <notebook>
+                                                    <page string="checklist">
+                                                        <field name="checklist_ids">
+                                                            <tree >
+                                                                <field name="checklist_template_id"/>
+                                                                <field name="reason"/>
+                                                                <field name="image_ids">
+
+                                                                </field>
+                                                                <field name="is_pass"/>
+                                                            </tree>
+                                                             <form>
+                                                                <group>
+                                                                    <group>
+                                                                        <field name="checklist_template_id"/>
+
+                                                                        <field name="is_pass"/>
+                                                                        <field name="reason"/>
+                                                                    </group>
+                                                                </group>
+                                                                <notebook>
+                                                                    <page string="image">
+                                                                        <field name="image_ids">
+                                                                    <tree editable="bottom">
+                                                                        <field name="image" widget="image" class="oe_avatar"/>
+                                                                    </tree>
+                                                                </field>
+                                                                    </page>
+                                                                </notebook>
+                                                            </form>
+                                                        </field>
+                                                    </page>
+                                                </notebook>
+                                            </form>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook> -->
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_activity_type_tree_id" model="ir.ui.view">
+        <field name="name">project.activity.type.tree</field>
+        <field name="model">project.activity.type</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Project Activity Type">
+                <field name="display_name"/>
+                <field name="project_id"/>
+                <field name="progress_percentage"/>
+                <field name="tower_id"/>
+                <!-- <button name="%(action_perform_operation_submit)d" type="action" string="Submit" class="btn-primary"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_activity_type_from_id" model="ir.ui.view">
+        <field name="name">project.activity.type.form</field>
+        <field name="model">project.activity.type</field>
+        <field name="arch" type="xml">
+            <form string="Project Activity Type">
+                <header>
+                    <!-- <button name="button_set_to_draft" string="Submit" attrs="{'invisible': [('status', '!=', 'submit')]}" type="object" class="btn btn-primary me-1" groups="custom_project_management.group_quality_checker"/> -->
+                    <button name="button_set_to_maker" string="Submit" attrs="{'invisible': [('status', '!=', 'maker')]}" type="object" class="btn btn-primary me-1" groups="custom_project_management.group_quality_approver"/>
+                    <button name="button_set_to_checker" string="Submit" attrs="{'invisible': [('status', '!=', 'checked')]}" type="object" class="btn btn-primary me-1" groups="custom_project_management.group_quality_approver"/>
+
+                    <button name="button_submit" string="Submit" attrs="{'invisible': [('status', '!=', 'draft')]}" type="object" class="btn btn-primary me-1" groups="custom_project_management.group_quality_maker"/>
+                    <button name="button_checking_done" string="Mark As checked" attrs="{'invisible': [('status', '!=', 'submit')]}" type="object" class="btn btn-primary me-1" groups="custom_project_management.group_quality_checker"/>
+                    <button name="button_approve" string="Mark As Approved" attrs="{'invisible': [('status', '!=', 'checked')]}" type="object" class="btn btn-primary me-1" groups="custom_project_management.group_quality_approver"/>
+                  
+                  
+            <!-- # ======added by me to hide notification when rejected by checker========= -->
+                    <button name="action_checker_reject" string="Mark As Checker Rejected" attrs="{'invisible': [('status', '!=', 'submit')]}" type="object" class="btn btn-primary me-1" groups="custom_project_management.group_quality_checker"/>
+                    <button name="action_approver_reject" string="Mark As Approver Rejected" attrs="{'invisible': [('status', '!=', 'checked')]}" type="object" class="btn btn-primary me-1" groups="custom_project_management.group_quality_approver"/>
+
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="display_name" invisible="1"/>
+                            <field name="project_actn_id" />
+                            <field name="progress_percentage"/>
+                            <field name="project_id"/>
+                            <field name="overall_remarks"/>
+                            <field name="overall_remarks_maker"/>
+                            <field name="overall_remarks_checker"/>
+                            <field name="overall_remarks_approver"/>
+                            <field name="submitted_date"/>
+                            <field name="checked_date"/>
+                            <field name="approved_date"/>
+                            <field name="type_status"/>
+
+
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="seq_no"/>
+                            <field name="tower_id"/>
+                            <field name="project_id"/>
+                            <field name="comment"/>
+                            <field name="user_maker"/>
+                            <field name="user_checker"/>
+                            <field name="user_approver"/>
+
+
+                        </group>
+                        <group>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="checklist">
+                            <field name="checklist_ids">
+                                <tree >
+                                    <field name="checklist_template_id"/>
+                                    <field name="reason"/>
+                                    <field name="image_ids">
+
+                                    </field>
+                                    <field name="is_pass"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="checklist_template_id"/>
+
+                                            <field name="is_pass"/>
+                                            <field name="reason"/>
+                                            <field name="submitted" invisible="1"/>
+
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="image">
+                                            <field name="image_ids">
+                                                <tree editable="bottom">
+                                                    <field name="image" widget="image" class="oe_avatar"/>
+                                                    <field name="img_desc"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+
+                        <page string="Image(s)">
+                            <field name="activity_type_img_ids">
+                                <tree >
+                                    <field name="overall_img"/>
+                                    <field name="url"/>
+                                    <field name="img_type"/>
+                                    <field name="img_desc"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- <page string="Log(s)">
+                                                        <field name="pcl_log_ids">
+                                                            <tree >
+                                                                <field name="activity_type_id"/>
+                                                               
+                                                            </tree>
+                                                        </field>
+                                                    </page> -->
+
+
+
+
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="project_activity_tree_id" model="ir.ui.view">
+        <field name="name">project.activity.tree</field>
+        <field name="model">project.activity</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Project Activity">
+                <!-- <field name="name"/> -->
+                <field name="project_activity_name_id"/>
+                <field name="description" invisible="1"/>
+                <field name="project_id"/>
+                <field name="tower_id"/>
+                <field name="progress_percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_activity_from_id" model="ir.ui.view">
+        <field name="name">project.activity.form</field>
+        <field name="model">project.activity</field>
+        <field name="arch" type="xml">
+            <form string="Project Activity">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="project_activity_name_id" />
+                            <field name="description" invisible="1"/>
+                            <field name="progress_percentage"/>
+                            <field name="tower_id"/>
+                            <field name="flat_id" />
+                            <field name="progress_percentage" />
+                        </group>
+                        <group>
+                            <field name="name" required="0"/>
+                            <field name="project_id"/>
+                            <field name="floor_id" />
+                            <field name="count" />
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Activity Type" name="activity_type">
+                            <field name="activity_type_ids">
+                                <tree >
+                                    <field name="name"/>
+                                    <field name="progress_percentage"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <!-- NEW -->
+
+                                            <field name="project_actn_id"/>
+                                            <field name="name"/>
+                                            <field name="progress_percentage"/>
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page string="checklist">
+                                            <field name="checklist_ids">
+                                                <tree >
+                                                    <field name="checklist_template_id"/>
+                                                    <field name="reason"/>
+                                                    <field name="image_ids" widget="image" class="oe_avatar">
+
+                                                    </field>
+                                                    <field name="is_pass"/>
+                                                </tree>
+                                                <form>
+                                                    <group>
+                                                        <group>
+                                                            <field name="checklist_template_id"/>
+
+                                                            <field name="is_pass"/>
+                                                            <field name="reason"/>
+                                                            <field name="submitted" invisible="1"/>
+
+                                                        </group>
+                                                    </group>
+                                                    <notebook>
+                                                        <page string="image">
+                                                            <field name="image_ids">
+                                                                <tree editable="bottom">
+                                                                    <field name="image" widget="image" class="oe_avatar"/>
+                                                                </tree>
+                                                            </field>
+                                                        </page>
+                                                    </notebook>
+                                                </form>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_checklist_template_tree_id" model="ir.ui.view">
+        <field name="name">project.checklist.template.tree</field>
+        <field name="model">project.checklist.template</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Project Checklist Template" editable="bottom">
+                <field name="name"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_checklist_template_from_id" model="ir.ui.view">
+        <field name="name">project.checklist.template.form</field>
+        <field name="model">project.checklist.template</field>
+        <field name="arch" type="xml">
+            <form string="Project Activity">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="checklist_allocation_tree_view" model="ir.ui.view">
+        <field name="name">checklist.allocation.tree</field>
+        <field name="model">checklist.allocation</field>
+        <field name="priority">4</field>
+        <field name="arch" type="xml">
+            <tree string="Checklist Allocation">
+                <field name="tower_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="checklist_allocation_from_id" model="ir.ui.view">
+        <field name="name">checklist.allocation.form</field>
+        <field name="model">checklist.allocation</field>
+        <field name="arch" type="xml">
+            <form string="Checklist Allocation">
+                <header>
+                    <!-- <button name="button_set_to_draft" string="Submit" attrs="{'invisible': [('status', '!=', 'submit')]}" type="object" class="btn btn-primary me-1" groups="custom_project_management.group_quality_checker"/> -->
+
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="tower_id" />
+                        </group>
+                        <notebook>
+                            <page string="Floor Activity">
+                                <button name="action_load_floor_activity" string="Load Actiivty" type="object" class="btn btn-primary me-1" />
+                                <!-- <button name="action_create_floor_activity" string="Create Activity's For Floor" type="object" class="btn btn-primary me-1" />  -->
+                                <field name="checklist_allocation_floor_ids">
+                                    <tree editable="bottom">
+                                        <!-- <field name="sequence" widget="handle"/> -->
+                                        <field name="project_activity_name_floor_id"/>
+                                        <field name="is_created"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Floor(s)">
+                                <button name="action_sync_floors" string="Sync Floors" type="object" class="btn btn-primary me-1" />
+
+                                <field name="floor_ids">
+                                    <tree editable="bottom">
+                                        <field name="floor_ids" widget="many2many_tags"/>
+                                        <field name="is_created"/>
+                                        <button name="create_floors_activity" string="Create Activity's For Floors" type="object" class="btn btn-primary me-1" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Flat Activity">
+                                <button name="action_load_flat_activity" string="Load Actiivty" type="object" class="btn btn-primary me-1" />
+                                <!-- <button name="action_create_flat_activity" string="Create Activity's For Flat" type="object" class="btn btn-primary me-1" /> -->
+                                <field name="checklist_allocation_flat_ids">
+                                    <tree editable="bottom">
+                                        <!-- <field name="sequence" widget="handle"/> -->
+                                        <field name="project_activity_name_flat_id"/>
+                                        <field name="is_created"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page string="Flat(s)">
+                                <button name="action_sync_flats" string="Sync Flats" type="object" class="btn btn-primary me-1" />
+
+                                <field name="flat_ids">
+                                    <tree editable="bottom">
+                                        <field name="flat_ids" widget="many2many_tags"/>
+                                        <field name="is_created"/>
+                                        <button name="create_flats_activity" string="Create Activity's For Flats" type="object" class="btn btn-primary me-1" />
+
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+
+                </sheet>
+                <!-- <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div> -->
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="action_checklist_allocation" model="ir.actions.act_window">
+        <field name="name">Checklist Allocation</field>
+        <field name="res_model">checklist.allocation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create Checklist Allocation</p>
+        </field>
+    </record>
+
+    <record id="tree_checklist_line" model="ir.ui.view">
+        <field name="name">project.checklist.line.tree</field>
+        <field name="model">project.checklist.line</field>
+        <field name="arch" type="xml">
+            <tree string="Project Line" editable="bottom">
+                <field name="checklist_template_id"/>
+                <field name="is_pass"/>
+                <field name="activity_type_id"/>
+                <field name="overall_remarks"/>
+                <field name="project_line_nc"/>
+                <field name="project_line_red"/>
+                <field name="project_line_orange"/>
+                <field name="project_line_yellow"/>
+                <field name="project_line_cre_date"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="action_checklist_line" model="ir.actions.act_window">
+        <field name="name">Checklist Line</field>
+        <field name="res_model">project.checklist.line</field>
+        <field name="view_mode">tree</field>
+        <field name="help" type="html">
+            <p>Create Checklist Line</p>
+        </field>
+    </record>
+
+
+    <record id="action_project_tower_info" model="ir.actions.act_window">
+        <field name="name">Project Tower</field>
+        <field name="res_model">project.tower</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create and manage Project Tower</p>
+        </field>
+    </record>
+
+    <record id="action_project_floors_info" model="ir.actions.act_window">
+        <field name="name">Project Floors</field>
+        <field name="res_model">project.floors</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create and manage Project Floors</p>
+        </field>
+    </record>
+
+    <record id="action_project_flats_info" model="ir.actions.act_window">
+        <field name="name">Project Flats</field>
+        <field name="res_model">project.flats</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create and manage Project Flats</p>
+        </field>
+    </record>
+
+    <record id="action_project_activity_info" model="ir.actions.act_window">
+        <field name="name">Project Activity</field>
+        <field name="res_model">project.activity</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create and manage Project Activity</p>
+        </field>
+    </record>
+
+    <record id="action_project_activity_type_info" model="ir.actions.act_window">
+        <field name="name">Project Activity Type</field>
+        <field name="res_model">project.activity.type</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create and manage Project Activity Type</p>
+        </field>
+    </record>
+
+
+
+    <record id="action_project_checklist_template_info_one" model="ir.actions.act_window">
+        <field name="name">Project Checklist Template</field>
+        <field name="res_model">project.checklist.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create Checklist Template</p>
+        </field>
+    </record>
+
+    <record id="action_project_nc" model="ir.actions.act_window">
+        <field name="name">Project NC</field>
+        <field name="res_model">project.nc</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create Project NC</p>
+        </field>
+    </record>
+</odoo>

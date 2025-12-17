@@ -1,0 +1,249 @@
+<odoo>
+    <record id="mark_project_tower_tree_id" model="ir.ui.view">
+        <field name="name">mark.project.tower.tree</field>
+        <field name="model">project.tower</field>
+        <field name="inherit_id" ref="custom_project_management.project_tower_tree_id"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree//field[@name='project_id']" position="after">
+                <field name="tower_rating"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_project_tower_from_id" model="ir.ui.view">
+        <field name="name">mark.project.tower.form</field>
+        <field name="model">project.tower</field>
+        <field name="inherit_id" ref="custom_project_management.project_tower_from_id"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet//group//group//field[@name='project_id']" position="after">
+                <field name="tower_rating"/>
+<!--                <field name="tower_total_rating" invisible="1"/>-->
+<!--                <field name="tower_obt_rating" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='Floor']//field[@name='tower_floor_line_id']//tree//field[@name='name']" position="after">
+                <field name="floors_rating"/>
+<!--                <field name="floors_total_rating" invisible="1"/>-->
+<!--                <field name="floors_obt_rating" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='Floor']//field[@name='tower_floor_line_id']//form//field[@name='name']" position="after">
+                <field name="floors_rating"/>
+<!--                <field name="floors_total_rating" invisible="1"/>-->
+<!--                <field name="floors_obt_rating" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='Floor']//field[@name='tower_floor_line_id']//form//notebook//page[@name='activity']//field[@name='activity_ids']//tree//field[@name='name']" position="after">
+                <field name="act_rating"/>
+<!--                 <field name="total_act_rate" invisible="1"/>-->
+<!--                <field name="obt_act_rate" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='Floor']//field[@name='tower_floor_line_id']//form//notebook//page[@name='activity']//field[@name='activity_ids']//form//field[@name='name']" position="after">
+                <field name="act_rating"/>
+<!--                 <field name="total_act_rate" invisible="1"/>-->
+<!--                <field name="obt_act_rate" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='Floor']//field[@name='tower_floor_line_id']//form//notebook//page[@name='activity']//field[@name='activity_ids']//form//notebook//page//field[@name='activity_type_ids']//tree//field[@name='name']" position="after">
+                <field name="act_type_rating"/>
+<!--                <field name="total_act_type_rate" invisible="1"/>-->
+<!--                <field name="obt_act_type_rate" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='Floor']//field[@name='tower_floor_line_id']//form//notebook//page[@name='activity']//field[@name='activity_ids']//form//notebook//page//field[@name='activity_type_ids']//form//field[@name='name']" position="after">
+                <field name="act_type_rating"/>
+<!--                <field name="total_act_type_rate" invisible="1"/>-->
+<!--                <field name="obt_act_type_rate" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='Floor']//field[@name='tower_floor_line_id']//form//notebook//page[@name='activity']//field[@name='activity_ids']//form//notebook//page//field[@name='activity_type_ids']//form//notebook//page//field[@name='checklist_ids']//tree//field[@name='reason']" position="after">
+                <field name="checklist_mark"/>
+            </xpath>
+            <xpath expr="//notebook//page[@name='Flat']//field[@name='tower_flat_line_id']//tree//field[@name='name']" position="after">
+                <field name="flats_rating"/>
+<!--                <field name="flats_total_rating" invisible="1"/>-->
+<!--                <field name="flats_obt_rating" invisible="1"/>-->
+            </xpath>
+            <!-- <xpath expr="//notebook//page[@name='Flat']//field[@name='tower_flat_line_id']//form//field[@name='name']" position="after">
+                <field name="flats_rating"/>
+            </xpath> -->
+            <xpath expr="//notebook//page[@name='Flat']//field[@name='tower_flat_line_id']//form//notebook//page[@name='activity']//field[@name='activity_ids']//tree//field[@name='name']" position="after">
+                <field name="act_rating"/>
+<!--                 <field name="total_act_rate" invisible="1"/>-->
+<!--                <field name="obt_act_rate" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='Flat']//field[@name='tower_flat_line_id']//form//notebook//page[@name='activity']//field[@name='activity_ids']//form//field[@name='name']" position="after">
+                <field name="act_rating"/>
+<!--                 <field name="total_act_rate" invisible="1"/>-->
+<!--                <field name="obt_act_rate" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='Flat']//field[@name='tower_flat_line_id']//form//notebook//page[@name='activity']//field[@name='activity_ids']//form//notebook//page//field[@name='activity_type_ids']//tree//field[@name='name']" position="after">
+                <field name="act_type_rating"/>
+<!--                <field name="total_act_type_rate" invisible="1"/>-->
+<!--                <field name="obt_act_type_rate" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='Flat']//field[@name='tower_flat_line_id']//form//notebook//page[@name='activity']//field[@name='activity_ids']//form//notebook//page//field[@name='activity_type_ids']//form//field[@name='name']" position="after">
+                <field name="act_type_rating"/>
+<!--                <field name="total_act_type_rate" invisible="1"/>-->
+<!--                <field name="obt_act_type_rate" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//notebook//page[@name='Flat']//field[@name='tower_flat_line_id']//form//notebook//page[@name='activity']//field[@name='activity_ids']//form//notebook//page//field[@name='activity_type_ids']//form//notebook//page//field[@name='checklist_ids']//tree//field[@name='reason']" position="after">
+                <field name="checklist_mark"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_project_floors_tree_id" model="ir.ui.view">
+        <field name="name">mark.project.floors.tree</field>
+        <field name="model">project.floors</field>
+        <field name="inherit_id" ref="custom_project_management.project_floors_tree_id"/>
+        <field name="arch" type="xml">
+             <xpath expr="//tree//field[@name='floor_id']" position="after">
+                <field name="floors_rating"/>
+<!--                 <field name="floors_total_rating" invisible="1"/>-->
+<!--                <field name="floors_obt_rating" invisible="1"/>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_project_floors_form_id" model="ir.ui.view">
+        <field name="name">mark.project.floors.form</field>
+        <field name="model">project.floors</field>
+        <field name="inherit_id" ref="custom_project_management.project_floors_from_id"/>
+        <field name="arch" type="xml">
+             <xpath expr="//form//sheet//group//group//field[@name='floor_id']" position="after">
+                <field name="floors_rating"/>
+<!--                <field name="floors_total_rating" invisible="1"/>-->
+<!--                <field name="floors_obt_rating" invisible="1"/>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_project_flats_tree_id" model="ir.ui.view">
+        <field name="name">mark.project.flats.tree</field>
+        <field name="model">project.flats</field>
+        <field name="inherit_id" ref="custom_project_management.project_flats_tree_id"/>
+        <field name="arch" type="xml">
+             <xpath expr="//tree//field[@name='flat_id']" position="after">
+                <field name="flats_rating"/>
+<!--                 <field name="flats_total_rating" invisible="1"/>-->
+<!--                <field name="flats_obt_rating" invisible="1"/>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_project_flats_from_id" model="ir.ui.view">
+        <field name="name">mark.project.flats.form</field>
+        <field name="model">project.flats</field>
+        <field name="inherit_id" ref="custom_project_management.project_flats_from_id"/>
+        <field name="arch" type="xml">
+             <xpath expr="//form//sheet//group//group//field[@name='project_id']" position="after">
+                <field name="flats_rating"/>
+<!--                <field name="flats_total_rating" invisible="1"/>-->
+<!--                <field name="flats_obt_rating" invisible="1"/>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_project_activity_type_tree_id" model="ir.ui.view">
+        <field name="name">mark.project.activity.type.tree</field>
+        <field name="model">project.activity.type</field>
+        <field name="inherit_id" ref="custom_project_management.project_activity_type_tree_id"/>
+        <field name="arch" type="xml">
+             <xpath expr="//tree//field[@name='project_id']" position="after">
+                <field name="act_type_rating"/>
+<!--                 <field name="total_act_type_rate" invisible="1"/>-->
+<!--                <field name="obt_act_type_rate" invisible="1"/>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_project_activity_type_from_id" model="ir.ui.view">
+        <field name="name">mark.project.activity.type.form</field>
+        <field name="model">project.activity.type</field>
+        <field name="inherit_id" ref="custom_project_management.project_activity_type_from_id"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet//group//group//field[@name='project_actn_id']" position="after">
+                <field name="act_type_rating"/>
+<!--                <field name="total_act_type_rate" invisible="1"/>-->
+<!--                <field name="obt_act_type_rate" invisible="1"/>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_roject_activity_tree_id" model="ir.ui.view">
+        <field name="name">mark.project.activity.tree</field>
+        <field name="model">project.activity</field>
+        <field name="inherit_id" ref="custom_project_management.project_activity_tree_id"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree//field[@name='project_id']" position="after">
+                <field name="act_rating"/>
+<!--                <field name="total_act_rate" invisible="1"/>-->
+<!--                <field name="obt_act_rate" invisible="1"/>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_project_activity_from_id" model="ir.ui.view">
+        <field name="name">mark.project.activity.form</field>
+        <field name="model">project.activity</field>
+         <field name="inherit_id" ref="custom_project_management.project_activity_from_id"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form//sheet//group//group//field[@name='description']" position="after">
+                <field name="act_rating"/>
+<!--                <field name="total_act_rate" invisible="1"/>-->
+<!--                <field name="obt_act_rate" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//form//sheet//notebook//page//field[@name='activity_type_ids']//tree//field[@name='name']" position="after">
+                <field name="act_type_rating"/>
+<!--                <field name="total_act_type_rate" invisible="1"/>-->
+<!--                <field name="obt_act_type_rate" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//form//sheet//notebook//page//field[@name='activity_type_ids']//form//field[@name='name']" position="after">
+                <field name="act_type_rating"/>
+<!--                <field name="total_act_type_rate" invisible="1"/>-->
+<!--                <field name="obt_act_type_rate" invisible="1"/>-->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_project_checklist_template_tree_id" model="ir.ui.view">
+        <field name="name">mark.project.checklist.template.tree</field>
+        <field name="model">project.checklist.template</field>
+        <field name="inherit_id" ref="custom_project_management.project_checklist_template_tree_id"/>
+        <field name="arch" type="xml">
+           <xpath expr="//tree//field[@name='name']" position="after">
+                <field name="marks"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_project_checklist_template_form_id" model="ir.ui.view">
+        <field name="name">mark.project.checklist.template.form</field>
+        <field name="model">project.checklist.template</field>
+        <field name="inherit_id" ref="custom_project_management.project_checklist_template_from_id"/>
+        <field name="arch" type="xml">
+           <xpath expr="//form//sheet//group//group//field[@name='name']" position="after">
+                <field name="marks"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mark_project_info_from_id" model="ir.ui.view">
+        <field name="name">mark.project.info.form</field>
+        <field name="model">project.info</field>
+        <field name="inherit_id" ref="custom_project_management.project_info_from_id"/>
+        <field name="arch" type="xml">
+             <xpath expr="//form//sheet//group//group//field[@name='longi']" position="after">
+                <field name="project_rating"/>
+<!--                <field name="project_total_rating" invisible="1"/>-->
+<!--                <field name="project_obt_rating" invisible="1"/>-->
+            </xpath>
+            <xpath expr="//form//sheet//notebook//page[2]//field[@name='project_info_tower_line_temp']//tree//field[@name='tower_id']" position="after">
+                <field name="project_tower_rating"/>
+<!--                <field name="pro_tower_total_rating" invisible="1"/>-->
+<!--                <field name="pro_tower_obt_rating" invisible="1"/>-->
+            </xpath>
+<!--            <xpath expr="//form//sheet" position="before">-->
+<!--               <header>-->
+<!--                    <button name="check_project_progress_rating" string="Check Ratings"-->
+<!--                            type="object" class="oe_highlight" data-hotkey="w"/>-->
+<!--                </header>-->
+<!--            </xpath>-->
+        </field>
+    </record>
+</odoo>

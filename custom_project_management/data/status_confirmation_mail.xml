@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <record id="email_status_set_to_yes_mail" model="mail.template">
+            <field name="name">Activity: Email for activity status yes</field>
+            <field name="model_id" ref="custom_project_management.model_project_activity_type"/>
+             <field name="body_html" type="html">
+                 <div style="margin: 0px; padding: 0px;">
+                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                         Hello,
+                         <br/>
+                         <br/>
+                         <span style="font-weight: bold;" t-out="object.act_responsible_person.name"/>
+                         <br/>
+                         <br/>
+                         Thanks,
+                         <br/>
+                         <br/>
+                     </p>
+                 </div>
+             </field>
+        </record>
+
+        <record id="email_status_set_to_no_mail" model="mail.template">
+            <field name="name">Activity: Email for activity status No</field>
+            <field name="model_id" ref="custom_project_management.model_project_activity_type"/>
+             <field name="body_html" type="html">
+                 <div style="margin: 0px; padding: 0px;">
+                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                         Hello,
+                         <br/>
+                         <br/>
+                         <span style="font-weight: bold;" t-out="object.act_responsible_person.name"/>
+                         <br/>
+                         <br/>
+                         Thanks,
+                         <br/>
+                         <br/>
+                     </p>
+                 </div>
+             </field>
+        </record>
+
+    </data>
+</odoo>

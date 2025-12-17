@@ -1,0 +1,33 @@
+ <record id="action_report_truck_booking_form" model="ir.actions.report">
+        <field name="name">Truck Booking</field>
+        <field name="model">truck.booking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">
+           packers_and_movers_management.form_truck_booking_report
+        </field>
+        <field name="report_file">
+           packers_and_movers_management.form_truck_booking_report
+        </field>
+        <field name="binding_model_id" ref="model_truck_booking"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="form_truck_booking_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center">
+                            <h1>Packers And Movers Management</h1>
+                        </div>
+                        <h3>Customer:
+                            <span t-field="o.name"/>
+                        </h3>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+
+

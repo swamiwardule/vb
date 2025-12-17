@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_users_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+
+                 <!-- <xpath expr="//notebook" position="inside"> -->
+                  <notebook position="inside">
+
+                    <page string="One Signal Notification">
+                        <field name="player_line_ids" string="Player IDs" >
+                            <tree editable= "bottom">
+                                <field name="player_id" string="Player ID" />
+                                <field name="datetime" />
+                            </tree> 
+                        </field>
+                    </page>
+                    </notebook>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+
+
+

@@ -1,0 +1,40 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_custom_field,Admin,model_res_users,base.group_user,1,1,1,1
+access_notification,Admin,model_app_notification,base.group_user,1,1,1,1
+access_notification_log,Admin,model_app_notification_log,base.group_user,1,1,1,1
+
+access_dashboard,Admin,model_information_dashboard,base.group_user,1,1,1,1
+access_meeting,Admin,model_meeting_meeting,base.group_user,1,1,1,1
+access_ctr_brand_list,Admin,model_ctr_brand_list,base.group_user,1,1,1,1
+access_ctr_brand_list_line,Admin,model_ctr_brand_list_line,base.group_user,1,1,1,1
+access_error_log,Admin,model_error_log,base.group_user,1,1,1,1
+access_limit_offset,Admin,model_limit_offset,base.group_user,1,1,1,1
+access_db_conf,Admin,model_db_conf,base.group_user,1,1,1,1
+
+access_notification_admin, Custom Admin,model_app_notification,group_admin_user,1,1,1,1
+access_notification_admin_log, Custom Admin,model_app_notification_log,group_admin_user,1,1,1,1
+
+access_error_log_admin,Custom Admin,model_error_log,group_admin_user,1,1,1,1
+access_limit_offset_admin,Custom Admin,model_limit_offset,group_admin_user,1,1,1,1
+access_db_conf_admin,Custom Admin,model_db_conf,group_admin_user,1,1,1,1
+access_fy_admin,Custom Admin,model_fiscal_year,group_admin_user,1,1,1,1
+access_ctr_brand_lst,Admin,model_ctr_brand_list,group_admin_user,1,1,1,1
+access_ctr_brand_lst_line,Admin,model_ctr_brand_list_line,group_admin_user,1,1,1,1
+
+
+
+user_manger_meeting,Manager,model_meeting_meeting,group_manager_user,1,1,1,1
+user_manger_ctr_brand_list,Manager,model_ctr_brand_list,group_manager_user,1,1,1,1
+user_manger_dashboard,Manager,model_information_dashboard,group_manager_user,1,1,1,1
+access_ctr_brand_lst_m,Manager,model_ctr_brand_list,group_manager_user,1,1,1,1
+access_ctr_brand_lst_line_m,Manager,model_ctr_brand_list_line,group_manager_user,1,1,1,1
+
+
+
+user_salesperson_meeting,User,model_meeting_meeting,group_salesperson_user,1,1,1,0
+user_salesperson_ctr_brand_list,User,model_ctr_brand_list,group_salesperson_user,1,1,1,0
+user_salesperson_dashboard,User,model_information_dashboard,group_salesperson_user,1,1,1,0
+access_ctr_brand_lst_s,Manager,model_ctr_brand_list,group_salesperson_user,1,1,1,0
+access_ctr_brand_lst_line_s,Manager,model_ctr_brand_list_line,group_salesperson_user,1,1,1,0
+

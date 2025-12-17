@@ -1,0 +1,119 @@
+<odoo>
+<!-- base.group_system -->
+    <menuitem id="project_menu_root"
+        name="Projects Management"
+        web_icon="custom_project_management,static/description/project.svg"
+        groups="custom_project_management.group_pm_user"
+        sequence="30">
+                <menuitem id="project_menu"
+                    name="Project"
+                    sequence="10">
+
+                    <menuitem id="menu_project_projects"
+                        name="Projects"
+                        action="action_project_info"
+                        sequence="10"/>
+
+                    <menuitem id="menu_manually_projects"
+                        name="Manually Flag"
+                        action="action_manually_set_flag"
+                        sequence="11"/>
+                    <menuitem id="menu_manually_projects_report"
+                        name="Manually Flag Report"
+                        action="action_report_wizard"
+                        sequence="12"/>
+
+                </menuitem>
+        <menuitem id="configurations_menu"
+            name="Configurations"
+            sequence="20">
+
+                <menuitem id="menu_project_towers"
+                name="Towers"
+                action="action_project_tower_info"
+                sequence="10"/>
+
+                <menuitem id="menu_project_floors"
+                    name="Floors"
+                    action="action_project_floors_info"
+                    sequence="20"/>
+
+                <menuitem id="menu_project_flats"
+                    name="Flats"
+                    action="action_project_flats_info"
+                    sequence="30"/>
+
+                <menuitem id="menu_project_activity"
+                    name="Activity"
+                    action="action_project_activity_info"
+                    sequence="40"/>
+
+                <menuitem id="menu_project_activity_type"
+                    name="Activity Types"
+                    action="action_project_activity_type_info"
+                    sequence="50"/>
+
+                <menuitem id="menu_project_nc_template"
+                    name="Project NC"
+                    action="action_project_nc"
+                    sequence="70"/>
+                 <menuitem id="checklist_allication_id"
+                    name="Checklist Allocation"
+                    action="action_checklist_allocation"
+                    sequence="70"/>
+
+                  <menuitem id="checklist_line_menu_id"
+                     name="Checklist Lines"
+                     action="action_checklist_line"
+                     sequence="70"/>
+        </menuitem>
+
+                <menuitem id="master_tables"
+                    name="Master Data"
+                    sequence="60">
+
+                    <menuitem id="menu_activity_type_id"
+                        name="Activity"
+                        action="action_activity_name"
+                        sequence="11"/>
+
+                    <menuitem id="action_activity_type_name_id"
+                        name="Activity Type"
+                        action="action_activity_type_name"
+                        sequence="12"/>
+
+                    <menuitem id="menu_project_checklist_template"
+                    name="Checklist Template"
+                    action="action_project_checklist_template_info_one"
+                    sequence="13"/>
+                </menuitem>
+
+           <menuitem id="material_inspection"
+                    name="Material Inspection"
+                    sequence="60">
+
+                    <menuitem id="menu_material_inspection_id"
+                        name="Material Inspection"
+                        action="action_open_material_inspection"
+                        sequence="12"/>
+
+                    <menuitem id="menu_material_inspection_checklist"
+                        name="Checklist"
+                        action="action_open_mi_checklist"
+                        sequence="13"/>
+
+                    <menuitem id="menu_material_inspection_seq"
+                        name="Sequence(Do not create)"
+                        action="action_open_material_inspection_seq"
+                        sequence="90"/>
+
+
+                    <menuitem id="menu_material_inspection_log"
+                        name="Log(Do not create)"
+                        action="action_open_material_inspection_log"
+                        sequence="91"/>
+            </menuitem>
+            
+
+    </menuitem>
+</odoo>

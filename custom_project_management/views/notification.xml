@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+    <record model="ir.actions.server" id="action_hide_notification">
+       <field name="name">Hide Notification</field>
+       <field name="model_id" ref="custom_project_management.model_app_notification_log"/>
+       <field name="binding_model_id" ref="custom_project_management.model_app_notification_log"/>
+       <field name="state">code</field>
+        <field name="binding_view_types">list,form</field>
+       <field name="code">
+           action = records.action_hide_notification()
+       </field>
+    </record>
+
+
+        <record model="ir.ui.view" id="view_app_notification_log_form">
+            <field name="name">app.notification.log.form</field>
+            <field name="model">app.notification.log</field>
+            <field name="arch" type="xml">
+                <form >
+                <sheet>
+                    <group>
+                        <field name="notification_dt" readonly="1"/>
+                        <field name="project_info_id" readonly="1"/>
+                        <field name="activity_type_id" readonly="1"/>
+                        <field name="mi_id" readonly="1"/>
+                        <field name="tower_id" readonly="1"/>
+                        <field name="title" readonly="1"/>
+                        <field name="checklist_status" readonly="1"/>
+                        <field name="checklist_status_two" readonly="1"/>
+                        <!-- <field name="overall_checklist_status"/> -->
+                        <field name="res_user_id" readonly="1"/>
+                        <field name="player_id" invisible="1"/>
+                        <field name="seq_no" readonly="1"/>
+                        <field name="message" readonly="1"/>
+                        <field name="table_id" readonly="1"/>
+                        <field name="status" readonly="1"/>
+                        <field name="detail_line" readonly="1"/>
+                        <field name="read_unread" readonly="1"/>
+                        <field name="hide_notification"/>
+                        <!-- <field name="new_one"/> -->
+
+
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_app_notification_log_tree">
+            <field name="name">app.notification.log.tree</field>
+            <field name="model">app.notification.log</field>
+            <field name="arch" type="xml">
+                <tree string="Notification">
+                        <field name="notification_dt"/>
+                        <field name="project_info_id"/>
+                        <field name="tower_id"/>
+                        <field name="checklist_status"/>                       
+                        <field name="activity_type_id"/>
+                        <field name="mi_id"/>
+                        <field name="title"/>
+                        <field name="res_user_id"/>
+                        <field name="player_id" invisible="1" />
+                        <field name="seq_no"/>
+                        <field name="message"/>
+                        <field name="table_id" invisible="1"/>
+                        <field name="status"/>
+                        <field name="detail_line"/>
+                        <field name="read_unread" invisible="1"/>
+                      
+                        <!-- <field name="new_one"/> -->
+
+                </tree>
+            </field>
+    </record>
+
+        <record id="action_open_app_notification_log" model="ir.actions.act_window">
+            <field name="name">Notification Log</field>
+            <field name="res_model">app.notification.log</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_app_notification_log_tree"/>
+        </record>
+
+    <menuitem id="root_notification_log" name="Notification Log" groups="base.group_system" />
+    <menuitem id="menu_notification_log" name="Notification Log" parent="root_notification_log" action="action_open_app_notification_log" />
+
+
+    </data>
+</odoo>
+		

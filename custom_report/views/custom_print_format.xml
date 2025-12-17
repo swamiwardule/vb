@@ -1,0 +1,34 @@
+<odoo>
+
+<data>
+            <record id="print_custom_pf" model="report.paperformat">
+                <field name="name">DW Paper Format</field>
+                <field name="default" eval="True" />
+                <field name="format">A4</field>
+                <!-- <field name="page_height">0</field>
+                <field name="page_width">0</field> -->
+                <field name="orientation">Portrait</field>
+                <field name="margin_top">5</field>
+                <field name="margin_bottom">5</field>
+                <field name="margin_left">7</field>
+                <field name="margin_right">7</field>
+                <field name="header_line" eval="False" />
+                <field name="header_spacing">80</field>
+                <field name="dpi">90</field>
+            </record>
+
+
+            <record id="report_print" model="ir.actions.report">
+                <field name="name">Print Report</field>
+                <field name="model">template.detail</field>
+                <field name="report_type">qweb-pdf</field>
+                <field name="report_name">custom_report.report_custom</field>
+                <field name="report_file">custom_report.report_custom</field>
+                <field name="paperformat_id" ref="custom_report.print_custom_pf"/>
+                <field name="binding_model_id" ref="model_template_detail"/>
+                <field name="binding_type">report</field>
+            </record>
+
+</data>
+
+</odoo>

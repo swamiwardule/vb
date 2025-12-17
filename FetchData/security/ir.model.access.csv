@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_work_done_activity,work.done.activity,model_work_done_activity,,1,1,1,1
+access_work_order_activity,work.order.activity,model_work_order_activity,,1,1,1,1
+access_work_order,work.order,model_work_order,,1,1,1,1
+
+

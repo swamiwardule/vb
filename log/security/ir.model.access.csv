@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pctl,pctl,model_project_checklist_line_log,,1,1,1,1
+access_pctll,pctll,model_project_checklist_line_log_line,,1,1,1,1

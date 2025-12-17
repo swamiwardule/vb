@@ -1,0 +1,14 @@
+<odoo>
+    <record id="server_action_set_user_from_role" model="ir.actions.server">
+        <field name="name">Set User from Role</field>
+        <field name="model_id" ref="model_project_checklist_line_log"/>
+        <field name="state">code</field>
+        <field name="binding_model_id" ref="model_project_checklist_line_log"/>
+        <field name="binding_type">action</field>
+        <field name="code">
+            for rec in records:
+                if not rec.user_id and rec.role and rec.activity_type_id:
+                    rec.action_set_user_from_role()
+        </field>
+    </record>
+</odoo>

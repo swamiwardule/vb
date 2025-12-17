@@ -1,0 +1,12 @@
+<odoo>
+    <record id="flags_category_id" model="ir.module.category">
+        <field name="name">Project Users Category</field>
+        <field name="description">User access levels for open and close flags</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="flag_open_close_user_group" model="res.groups">
+        <field name="name">Project Report</field>
+        <field name="category_id" ref="flags_category_id"/>
+    </record>
+</odoo>

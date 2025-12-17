@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="DashboardMain">
+        <div class="oh_dashboards">
+            <div class="container-fluid o_hr_dashboard"/>
+        </div>
+    </t>
+    <t t-name="DashboardCountDiv">
+        <h2 class="section-header text-center" style="font-size: 2em; margin-left: 30px; padding-top: 10px; color:#4a5c9a;">Dashboard</h2><br/>
+<div class="d-flex justify-content-center flex-wrap">
+    <div class="col-sm-1 stat-card-d" id="all_project">
+        <div class="oh-div-card stat-widget">
+            <div class="stat-content">
+                <div class="stat-icon"><i class="fa fa-tasks"></i></div>
+                <div class="stat-text">Projects</div>
+                <div class="stat-digit"><t t-esc="widget.total_project"/></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-1 stat-card-d" id="all_towers">
+        <div class="oh-div-card stat-widget">
+            <div class="stat-content">
+                <div class="stat-icon"><i class="fa fa-building"></i></div>
+                <div class="stat-text">Towers</div>
+                <div class="stat-digit"><t t-esc="widget.total_tower"/></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-1 stat-card-d" id="all_floors">
+        <div class="oh-div-card stat-widget">
+            <div class="stat-content">
+                <div class="stat-icon"><i class="fa fa-building"></i></div>
+                <div class="stat-text">Floors</div>
+                <div class="stat-digit"><t t-esc="widget.total_floors"/></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-1 stat-card-d" id="all_flats">
+        <div class="oh-div-card stat-widget">
+            <div class="stat-content">
+                <div class="stat-icon"><i class="fa fa-home"></i></div>
+                <div class="stat-text">Flats</div>
+                <div class="stat-digit"><t t-esc="widget.total_flats"/></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-1 stat-card-d">
+        <div class="oh-div-card stat-widget">
+            <div class="stat-content">
+                <div class="stat-icon"><i class="fa fa-flag"></i></div>
+                <div class="stat-text">NC</div>
+                <div class="stat-digit"><t t-esc="widget.total_nc_count"/></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-1 stat-card-d">
+        <div class="oh-div-card stat-widget">
+            <div class="stat-content">
+                <div class="stat-icon"><i class="fa fa-flag"></i></div>
+                <div class="stat-text">Green Cards</div>
+                <div class="stat-digit"><t t-esc="widget.total_green_flag_count"/></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-1 stat-card-d">
+        <div class="oh-div-card stat-widget">
+            <div class="stat-content">
+                <div class="stat-icon"><i class="fa fa-flag"></i></div>
+                <div class="stat-text">Orange Cards</div>
+                <div class="stat-digit"><t t-esc="widget.total_orange_flag_count"/></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-1 stat-card-d">
+        <div class="oh-div-card stat-widget">
+            <div class="stat-content">
+                <div class="stat-icon"><i class="fa fa-flag"></i></div>
+                <div class="stat-text">Yellow Cards</div>
+                <div class="stat-digit"><t t-esc="widget.total_yellow_flag_count"/></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-1 stat-card-d">
+        <div class="oh-div-card stat-widget">
+            <div class="stat-content">
+                <div class="stat-icon"><i class="fa fa-flag"></i></div>
+                <div class="stat-text">Red Cards</div>
+                <div class="stat-digit"><t t-esc="widget.total_red_flag_count"/></div>
+            </div>
+        </div>
+    </div>
+</div>
+    </t>
+
+    <t t-name="Dashboard">
+        <div class="row main-section" style="margin-top:40px;">
+<!--            <div class="row main-section" style="margin-top: 20;">-->
+<!--                <div class="form-group">-->
+<!--                    <label for="section_select">Select Section:</label>-->
+<!--                    <select class="form-control" id="section_select">-->
+<!--                        <option value="project">Select Projects/Towers/Floors/Flats</option>-->
+<!--                        <option value="project">Projects</option>-->
+<!--                        <option value="tower">Towers</option>-->
+<!--                        <option value="floor">Floors</option>-->
+<!--                        <option value="flat">Flats</option>-->
+<!--                    </select>-->
+<!--                </div>-->
+<!--            </div>-->
+
+            <div id="project_section" class="col-md-2 col-sm-2" style="margin-top: 20px;">
+                <div class="form-group" style="width: 100%;">
+                    <label for="project_type">Select Projects:</label>
+                    <select class="form-control" id="project_type"></select>
+                </div>
+            </div>
+            <div id="project_details_selection" class="col-md-2 col-sm-2" style="margin-top: 20px;">
+                <div class="form-group" style="width: 100%;">
+                    <label for="project_details">Project Details Line:</label>
+                    <select class="form-control" id="project_details">
+<!--                        <option value="blank"/>-->
+                        <option value="Work Inspection">Work Inspection</option>
+                        <option value="Material Inspection">Material Inspection</option>
+                        <option value="Safety Inspection">Quality Inspection</option>
+                        <option value="Safety Inspection">Safety Inspection</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="tower_section" class="col-md-2 col-sm-4" style="margin-top: 20px;">
+                <div class="form-group" style="width: 100%;">
+                    <label for="tower_type">Select Towers:</label>
+                    <select class="form-control" id="tower_type"></select>
+                </div>
+            </div>
+
+            <div id="flat_section" class="col-md-3 col-sm-4 d-none" style="margin-top: 20px;">
+                <div class="form-group" style="width: 100%;">
+                    <label for="flat_type">Select Flats:</label>
+                    <select class="form-control" id="flat_type"></select>
+                </div>
+            </div>
+
+            <div id="floor_section" class="col-md-3 col-sm-4 d-none" style="margin-top: 20px;">
+                <div class="form-group" style="width: 100%;">
+                    <label for="floor_type">Select Floors:</label>
+                    <select class="form-control" id="floor_type"></select>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-4" style="margin-top: 20px;">
+                <div class="form-group">
+                    <label for="pending_complete_select">Checker:Maker:Approver</label>
+                    <select class="form-control" id="pending_complete_select">
+                        <option value="project">Select Pending/Complete</option>
+                        <option value="pending">Pending</option>
+                        <option value="complete">Complete</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4" style="margin-top: 20px;">
+                <div class="form-group">
+                    <label for="nc_yc_select"/>
+                </div>
+            </div>
+
+            <!-- Projects section Div-->
+            <div id="project_section_div" class="col-md-4 col-sm-6 chart-column d-none" style="padding: 10px;">
+                <div class="text-color hr-chart-1 oh-card equal-height">
+                    <div class="oh-card-body pb-0">
+                        <h4 class="mb-1">Projects Open</h4>
+                        <div class="project_graph"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Towers section Div -->
+            <div id="tower_section_div" class="col-md-4 col-sm-6 chart-column d-none" style="padding: 10px;">
+                <div class="text-color hr-chart-1 oh-card equal-height">
+                    <div class="oh-card-body pb-0">
+                        <h4 class="mb-1">Towers Open</h4>
+                        <div class="tower_graph"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floors section Div-->
+            <div id="floor_section_div" class="col-sm-4 chart-column d-none" style="padding: 10px;">
+                <div class="text-color hr-chart-1 oh-card">
+                    <div class="oh-card-body pb-0">
+                        <h4 class="mb-1">Floors Open</h4>
+                        <div class="floor_graph"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flats section Div-->
+            <div id="flat_section_div" class="col-sm-4 chart-column d-none" style="padding: 10px;">
+                <div class="text-color hr-chart-1 oh-card">
+                    <div class="oh-card-body pb-0">
+                        <h4 class="mb-1">Flats Open</h4>
+                        <div class="flat_graph"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project wise count of NC / YC / OC / RC / GC-->
+            <div id="project_nc" class="col-sm-4 chart-column d-none" style="padding: 10px;">
+                <div class="text-color hr-chart-1 oh-card">
+                    <div class="oh-card-body pb-0">
+                        <h4 class="mb-1">Project wise count of NC / YC / OC / RC / GC</h4>
+                        <div class="project_graph_count"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tower wise count of NC / YC / OC / RC / GC-->
+            <div id="tower_nc" class="col-sm-4 chart-column d-none" style="padding: 10px;">
+                <div class="text-color hr-chart-1 oh-card">
+                    <div class="oh-card-body pb-0">
+                        <h4 class="mb-1">Tower wise count of NC / YC / OC / RC / GC</h4>
+                        <div class="tower_graph_count"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Pie Chart For Complete Count of Checker / Maker / Approves-->
+            <div id="pending" class="col-sm-4 chart-column d-none" style="padding: 10px;">
+                <div class="text-color hr-chart-1 oh-card">
+                    <div class="oh-card-body pb-0">
+                        <h4 class="mb-1">Project wise complete Count of Checker / Maker / Approver</h4>
+                        <div class="c_m_a_graph"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Pie Chart For Pending Complete Count of Checker / Maker / Approves -->
+            <div id="complete" class="col-sm-4 chart-column d-none" style="padding: 10px;">
+                <div class="text-color hr-chart-1 oh-card">
+                    <div class="oh-card-body pb-0">
+                        <h4 class="mb-1">Project wise pending Count of Checker / Maker / Approver</h4>
+                        <div class="pending_c_m_a_graph"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Floor wise count of NC / YC / OC / RC / GC-->
+            <div id="floor_nc" class="col-sm-4 chart-column d-none" style="padding: 0;">
+                <div class="text-color oh-card">
+                    <div class="oh-card-body pb-0">
+                        <h4 class="mb-0">Floor wise count of NC / YC / OC / RC / GC</h4>
+                        <div class="floor_graph_count chart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flat wise count of NC / YC / OC / RC / GC-->
+            <div id="flat_nc" class="col-sm-4 chart-column d-none" style="padding: 0;">
+                <div class="text-color oh-card">
+                    <div class="oh-card-body pb-0">
+                        <h4 class="mb-0">Flat wise count of NC / YC / OC / RC / GC</h4>
+                        <div class="flat_graph_count chart"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </t>
+
+</templates>

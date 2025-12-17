@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_manually_set_flag">
+        <t t-call="web.html_container">
+            <style>
+                .table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                .table th, .table td {
+                    border: 1px solid black;
+                    padding: 12px;
+                    text-align: left;
+                    vertical-align: top;
+                }
+                .table th {
+                    background-color: #FFA500;
+                    color: white;
+                }
+                .image-table {
+                    width: 100%;
+                    border: none;
+                    margin: 0;
+                    padding: 0;
+                }
+                .image-table td {
+                    border: none;
+                    padding: 5px;
+                    text-align: center;
+                    vertical-align: top;
+                }
+                .image-table img {
+                    max-width: 200px;
+                    max-height: 300px;
+                    display: block;
+                    margin: 0 auto;
+                }
+                .image-section {
+                    margin-bottom: 10px;
+                }
+                .image-label {
+                    font-weight: bold;
+                    margin-bottom: 5px;
+                    text-align: center;
+                }
+            </style>
+            <div class="page">
+                <h2>Manually Set Flag Report</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Agenda Point</th>
+                            <th>Status</th>
+                            <th>Project Create Date</th>
+                            <th>Image/Decision Action</th>
+                            <th>Rectified Image/Decision Action</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="counter" t-value="0"/>
+                        <t t-foreach="docs" t-as="line">
+                            <tr>
+                                <!-- Sequential Number -->
+                                <td><t t-esc="counter + 1"/></td>
+                                <td>
+                                    <!-- Display Project Info -->
+                                    <t t-if="line.project_info_id">
+                                        <span>Project:</span> <t t-esc="line.project_info_id.name"/>
+                                    </t>
+                                    <br/>
+                                    <!-- Display Tower Info -->
+                                    <t t-if="line.project_tower_id">
+                                        <span>Tower:</span> <t t-esc="line.project_tower_id.name"/>
+                                    </t>
+                                    <br/>
+                                    <!-- Display Floor Info -->
+                                    <t t-if="line.project_floor_id">
+                                        <span>Floor:</span> <t t-esc="line.project_floor_id.name"/>
+                                    </t>
+                                    <br/>
+                                    <!-- Display Flat Info -->
+                                    <t t-if="line.project_flats_id">
+                                        <span>Flat:</span> <t t-esc="line.project_flats_id.name"/>
+                                    </t>
+                                    <br/>
+                                    <t t-if="line.project_rating">
+                                        <span>Rating:</span> <t t-esc="line.project_rating"/>
+                                    </t>
+                                    <t t-else="">
+                                        <span>Rating: 0.0</span>
+                                    </t>
+                                    <br/>
+                                    <!-- Display Flags -->
+                                    <t t-if="line.cre_Green > 0">
+                                        <span>Green Flag:</span> <t t-esc="line.cre_Green"/> <br/>
+                                    </t>
+                                    <t t-if="line.cre_nc > 0">
+                                        <span>NC Flag:</span> <t t-esc="line.cre_nc"/> <br/>
+                                    </t>
+                                    <t t-if="line.cre_orange > 0">
+                                        <span>Orange Flag:</span> <t t-esc="line.cre_orange"/> <br/>
+                                    </t>
+                                    <t t-if="line.cre_red > 0">
+                                        <span>Red Flag:</span> <t t-esc="line.cre_red"/> <br/>
+                                    </t>
+                                    <t t-if="line.cre_yellow > 0">
+                                        <span>Yellow Flag:</span> <t t-esc="line.cre_yellow"/> <br/>
+                                    </t>
+                                    <br/>
+                                    <!-- Display Activity Info -->
+                                    <t t-if="line.project_activity_id">
+                                        <span>Activity:</span> <t t-esc="line.project_activity_id.name"/>
+                                    </t>
+                                    <br/>
+                                    <!-- Display Activity Type Info -->
+                                    <t t-if="line.project_act_type_id">
+                                        <span>Activity Type:</span> <t t-esc="line.project_act_type_id.name"/>
+                                    </t>
+                                </td>
+                                <td><t t-esc="line.status"/></td>
+                                <td>
+                                    <t t-esc="line.project_create_date.strftime('%Y-%m-%d %H:%M:%S')"/>
+                                </td>
+                                <td>
+                                    <table class="image-table">
+                                        <tbody>
+                                                                                      <!-- Display all images from rectified_image_ids (One2many) -->
+                                            <t t-if="line.rectified_image_ids">
+                                                <t t-foreach="line.rectified_image_ids" t-as="rect_img">
+                                                    <tr>
+                                                        <td>
+                                                            <t t-if="rect_img.rectified_image">
+                                                                <img t-att-src="image_data_uri(rect_img.rectified_image)" alt="Rectified Image"/>
+                                                                <t t-if="rect_img.filename">
+                                                                    <div style="font-size: 10px; margin-top: 5px;">
+                                                                        <t t-esc="rect_img.filename"/>
+                                                                    </div>
+                                                                </t>
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                            <!-- Display Image from project_check_line_id.image_ids -->
+                                            <!-- <t t-if="line.project_check_line_id and line.project_check_line_id.image_ids">
+                                                <t t-foreach="line.project_check_line_id.image_ids" t-as="image">
+                                                    <tr>
+                                                        <td>
+                                                            <t t-if="image.image">
+                                                                <img t-att-src="image_data_uri(image.image)" alt="Image"/>
+                                                                <t t-if="image.filename">
+                                                                    <div style="font-size: 10px; margin-top: 5px;">
+                                                                        <t t-esc="image.filename"/>
+                                                                    </div>
+                                                                </t>
+                                                            </t>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </t> -->
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <table class="image-table">
+                                        <tbody>
+  
+                                            
+                                            <!-- Display single image field -->
+                                            <t t-if="line.image">
+                                                <tr>
+                                                    <td>
+                                                        <img t-att-src="image_data_uri(line.image)" alt="Single Rectified Image"/>
+                                                        <t t-if="line.filename">
+                                                            <div style="font-size: 10px; margin-top: 5px;">
+                                                                <t t-esc="line.filename"/>
+                                                            </div>
+                                                        </t>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                    <t t-if="line.description">
+                                        <t t-esc="line.description"/>
+                                    </t>
+                                </td>
+                                <t t-set="counter" t-value="counter + 1"/>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <record id="action_report_manually_set_flag" model="ir.actions.report">
+        <field name="name">Manually Set Flag Report</field>
+        <field name="model">manually.set.flag</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_project_management.report_manually_set_flag</field>
+        <field name="report_file">custom_project_management.report_manually_set_flag</field>
+        <field name="binding_model_id" ref="custom_project_management.model_manually_set_flag"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <template id="report_manually_set_flag_status">
+        <t t-call="web.html_container">
+            <style>
+                .table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                .table th, .table td {
+                    border: 1px solid black;
+                    padding: 12px; /* Adjusted padding for taller rows */
+                    text-align: left;
+                    vertical-align: top; /* Ensure vertical alignment */
+                }
+                .table th {
+                    background-color: #FFA500; /* Orange background color */
+                    color: white; /* White text color for contrast */
+                }
+                .image-table {
+                    width: 100%;
+                    border: none; /* No border for inner table */
+                    margin: 0;
+                    padding: 0;
+                }
+                .image-table td {
+                    border: none; /* No border for inner table cells */
+                    padding: 0;
+                    text-align: center;
+                }
+                                .image-table img {
+                        max-width: 550px;
+                        max-height: 1050px;
+                        display: block;
+                        margin: 0 auto;
+                    }
+                    .footer {
+                        position: fixed;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        text-align: center;
+                        font-size: 12px;
+                        border-top: 1px solid #000;
+                        padding: 10px 0;
+                        display: flex;
+                        justify-content: space-between; /* Space between left and right */
+                    }
+                    .header {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        display: flex;
+                        justify-content: flex-end; /* Align logo to the right */
+                        padding: 10px;
+                    }
+                    .header img {
+                        max-height: 50px; /* Adjust height as needed */
+                    }
+                </style>
+                <div class="header">
+                    <img src="/API_endpoits_16/custom_project_management/static/description/Image.jpeg" alt="Logo"/>
+                </div>
+            <div class="page">
+                <h2>Status Report for Projects</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SR. No.</th>
+                            <th>Agenda Point</th>
+                            <th>Discussion / Decision</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="counter" t-value="0"/>
+                        <t t-foreach="docs" t-as="line">
+                            <tr>
+                                <td><t t-esc="counter + 1"/></td>
+                                <td><t t-esc="line.project_info_id.name"/></td>
+                                <td>
+                                    <table class="image-table">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <t t-if="line.pie_chart_image">
+                                                        <img t-att-src="image_data_uri(line.pie_chart_image)" alt="Image"/>
+                                                    </t>
+                                                </td>
+                                                <td>
+                                                    <t t-if="line.combined_chart_image">
+                                                        <img t-att-src="image_data_uri(line.combined_chart_image)" alt="Image"/>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <t t-set="counter" t-value="counter + 1"/>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+            <div class="footer">
+                <div>
+                    <h5 style="margin: 0;">Vilas Javdekar Developers</h5>
+                </div>
+                <div>
+                    <h5 style="margin: 0;">Page <t t-esc="page_number"/></h5>
+                </div>
+            </div>
+        </t>
+    </template>
+
+<!--    <template id="report_manually_set_flag_status">-->
+<!--        <t t-call="web.html_container">-->
+<!--            <style>-->
+<!--                .table {-->
+<!--                    width: 100%;-->
+<!--                    border-collapse: collapse;-->
+<!--                }-->
+<!--                .table th, .table td {-->
+<!--                    border: 1px solid black;-->
+<!--                    padding: 12px; /* Adjusted padding for taller rows */-->
+<!--                    text-align: left;-->
+<!--                    vertical-align: top; /* Ensure vertical alignment */-->
+<!--                }-->
+<!--                .table th {-->
+<!--                    background-color: #FFA500; /* Orange background color */-->
+<!--                    color: white; /* White text color for contrast */-->
+<!--                }-->
+<!--                .image-table {-->
+<!--                    width: 100%;-->
+<!--                    border: none; /* No border for inner table */-->
+<!--                    margin: 0;-->
+<!--                    padding: 0;-->
+<!--                }-->
+<!--                .image-table td {-->
+<!--                    border: none; /* No border for inner table cells */-->
+<!--                    padding: 0;-->
+<!--                    text-align: center;-->
+<!--                }-->
+<!--                .image-table img {-->
+<!--                    max-width: 550px;-->
+<!--                    max-height: 1050px;-->
+<!--                    display: block;-->
+<!--                    margin: 0 auto;-->
+<!--                }-->
+<!--            </style>-->
+<!--                <div class="page">-->
+<!--                        <h2>Status Report for Projects</h2>-->
+<!--                    <table class="table">-->
+<!--                        <thead>-->
+<!--                            <tr>-->
+<!--                                <th>SR. No.</th>-->
+<!--                                <th>Agenda Point</th>-->
+<!--                                <th>Discussion / Decision</th>-->
+<!--                            </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                            <t t-set="counter" t-value="0"/>-->
+<!--                            <t t-foreach="docs" t-as="line">-->
+<!--                                <tr>-->
+<!--                                    <td><t t-esc="counter + 1"/></td>-->
+<!--                                    <td><t t-esc="line.project_info_id.name"/></td>-->
+<!--                                    <td>-->
+<!--                                        <table class="image-table">-->
+<!--                                            <tbody>-->
+<!--                                                <tr>-->
+<!--&lt;!&ndash;                                                    <td>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        <t t-if="line.bar_chart_image">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                            <img t-att-src="image_data_uri(line.bar_chart_image)" alt="Image"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                        </t>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    </td>&ndash;&gt;-->
+<!--                                                    <td>-->
+<!--                                                        <t t-if="line.pie_chart_image">-->
+<!--                                                            <img t-att-src="image_data_uri(line.pie_chart_image)" alt="Image"/>-->
+<!--                                                        </t>-->
+<!--                                                    </td>-->
+<!--                                                    <td>-->
+<!--                                                        <t t-if="line.combined_chart_image">-->
+<!--                                                            <img t-att-src="image_data_uri(line.combined_chart_image)" alt="Image"/>-->
+<!--                                                        </t>-->
+<!--                                                    </td>-->
+<!--                                                </tr>-->
+<!--                                            </tbody>-->
+<!--                                        </table>-->
+<!--                                    </td>-->
+<!--                                    <t t-set="counter" t-value="counter + 1"/>-->
+<!--                                </tr>-->
+<!--                            </t>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--        </t>-->
+<!--    </template>-->
+
+    <record id="action_report_manually_graph_set_flag" model="ir.actions.report">
+        <field name="name">Manually Set Flag Graph Report</field>
+        <field name="model">manually.set.flag</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_project_management.report_manually_set_flag_status</field>
+        <field name="report_file">custom_project_management.report_manually_set_flag_status</field>
+        <field name="print_report_name">"Status Report - %s" % (object.project_info_id.name)</field>
+        <field name="binding_model_id" ref="custom_project_management.model_manually_set_flag"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
+
+
+
+

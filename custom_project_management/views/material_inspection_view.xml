@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_material_inspection_form">
+            <field name="name">material.inspection.form</field>
+            <field name="model">material.inspection</field>
+            <field name="arch" type="xml">
+                <form>
+
+                <header>
+
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+
+                        <group>
+                            <group col="2">
+                            <field name="seq_no" />
+                            <field name="title" />
+                        </group>
+                        <group col="2">
+                            <field name="project_info_id" />
+                            <field name="tower_id" />
+                        </group>
+                        <group col="2">
+                            <field name="company_name" />
+                            <field name="mir_no" />
+                        </group>
+                           <group col="2">
+                         <field name="supplier_name"/>
+                        <field name="project_name"/>
+                        </group>
+                           <group col="2">
+                               <field name="material_desc"/>
+                        <field name="invoice_no"/>
+                        </group>
+                           <group col="2">
+                          <field name="quality_as_per_challan_inv"/>
+                        <field name="vehicle_no"/>
+                        </group>
+                           <group col="2">
+                       <field name="batch_no"/>
+                        <field name="date_of_insp"/>
+                        </group>
+                        <group col="2">
+                         <field name="remark"/>
+                        <field name="checked_by"/>
+                        <field name="image"/>
+                        </group>
+                        <group col="2">
+                            <field name="submitted_date"/>
+                            <field name="checked_date"/>
+                            <field name="approved_date"/>
+                            <field name="mi_status"/>
+
+                        </group>
+                             <group col="2">
+                            <field name="user_maker"/>
+                            <field name="user_checker"/>
+                            <field name="user_approver"/>
+                        </group>
+                    </group>
+
+                <notebook>
+                        <page string="Details" name="material_insp_line">
+                            <field name="material_insp_line">
+                                <tree editable="bottom">
+                                    <field name="checklist_id"/>
+                                    <field name="observation"/>
+                                    <field name="remark"/>
+                                </tree>
+                            </field>
+                        </page>
+                            <page string="Log" name="material_insp_log">
+                                <field name="material_insp_log">
+                                    <tree editable="bottom">
+                                        <field name="checklist_id"/>
+                                        <field name="is_pass"/>
+                                        <field name="remark"/>
+                                        <field name="overall_remarks"/>
+                                        <field name="title"/>
+                                        <field name="datetime"/>
+                                        <field name="project_id"/>
+                                        <field name="user_id"/>
+                                        <field name="role"/>
+                                        <field name="seq_no"/>
+                                        <field name="image"/>
+                                        <field name="url"/>
+                                        <field name="status"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        <page string="Image(s)" name="material_insp_img">
+                                <field name="material_insp_img">
+                                    <tree editable="bottom">
+                                        <field name="image"/>
+                                        <field name="filename"/>
+                                    </tree>
+                                </field>
+                        </page>
+                </notebook>
+
+            
+                    
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_material_inspection_tree">
+            <field name="name">material.inspection.tree</field>
+            <field name="model">material.inspection</field>
+            <field name="arch" type="xml">
+                <tree string="Material Inspection">
+                        
+                        <field name="seq_no"/>
+                        <field name="title"/>
+                        <field name="project_info_id"/>
+                        <field name="tower_id"/>
+                        <field name="company_name"/>
+                </tree>
+            </field>
+    </record>
+
+   
+            <record id="action_open_material_inspection" model="ir.actions.act_window">
+        <field name="name">Material Inpection</field>
+            <field name="res_model">material.inspection</field>
+            <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create Material Inspection</p>
+        </field>
+    </record>
+
+    <!-- <menuitem id="root_notification_log" name="Notification Log"  />
+    <menuitem id="menu_notification_log" name="Notification Log" parent="root_notification_log" action="action_open_app_notification_log" />
+ -->
+
+         <record model="ir.ui.view" id="view_mi_checklist_form">
+            <field name="name">mi.checklist.form</field>
+            <field name="model">mi.checklist</field>
+            <field name="arch" type="xml">
+                <form>
+                <sheet>
+
+                    <group>
+                        <group col="2">
+                        <field name="name" />
+                        </group>     
+                    </group>                    
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_mi_checklist_tree">
+            <field name="name">mi.checklist.tree</field>
+            <field name="model">mi.checklist</field>
+            <field name="arch" type="xml">
+                <tree string="Checklist">
+                        <field name="name"/>
+      
+                </tree>
+            </field>
+    </record>
+
+   
+            <record id="action_open_mi_checklist" model="ir.actions.act_window">
+        <field name="name">Mi Checklist</field>
+            <field name="res_model">mi.checklist</field>
+            <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Create Checklist</p>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_material_inspection_seq_form">
+            <field name="name">material.inspection.seq.form</field>
+            <field name="model">material.inspection.seq</field>
+            <field name="arch" type="xml">
+                <form>
+                <sheet>
+                    <group>
+                        <group col="2">
+                         <field name="project_info_id"/>
+                        <field name="current_month"/>
+                        <field name="seq_no"/>
+                        </group>     
+                    </group>                    
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_material_inspection_seq_tree">
+            <field name="name">material.inspection.seq.tree</field>
+            <field name="model">material.inspection.seq</field>
+            <field name="arch" type="xml">
+                <tree string="Sequence">
+                        <field name="project_info_id"/>
+                        <field name="current_month"/>
+                        <field name="seq_no"/>
+
+                </tree>
+            </field>
+    </record>
+
+   
+    <record id="action_open_material_inspection_seq" model="ir.actions.act_window">
+        <field name="name">MI Sequence</field>
+            <field name="res_model">material.inspection.seq</field>
+            <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Do Not Create Seq it will create automatically</p>
+        </field>
+    </record>
+
+
+
+        <record model="ir.ui.view" id="view_material_inspection_log_form">
+            <field name="name">material.inspection.log.form</field>
+            <field name="model">material.inspection.log</field>
+            <field name="arch" type="xml">
+                <form>
+                <sheet>
+                    <group>
+                        <group col="2">
+                         <field name="mi_id"/>
+                        <field name="checklist_id"/>
+                        <field name="is_pass"/>
+                        <field name="remark"/>
+                        <field name="overall_remarks"/>
+                        <field name="title"/>
+                        <field name="datetime"/>
+                        <field name="project_id"/>
+                        <field name="user_id"/>
+                        <field name="role"/>
+                        <field name="seq_no"/>
+                        <field name="url"/>
+                        <field name="image"/>
+                        <field name="status"/>
+                        </group>     
+                    </group>                    
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="view_material_inspection_log_tree">
+            <field name="name">material.inspection.log.tree</field>
+            <field name="model">material.inspection.log</field>
+            <field name="arch" type="xml">
+                <tree string="MI Log(s)">
+                    <field name="mi_id"/>
+                        <field name="checklist_id"/>
+                        <field name="is_pass"/>
+                        <field name="remark"/>
+                        <field name="overall_remarks"/>
+                        <field name="title"/>
+                        <field name="datetime"/>
+                        <field name="project_id"/>
+                        <field name="user_id"/>
+                        <field name="role"/>
+                        <field name="seq_no"/>  
+                        <field name="status"/>
+
+                </tree>
+            </field>
+    </record>
+
+   
+    <record id="action_open_material_inspection_log" model="ir.actions.act_window">
+        <field name="name">MI Log</field>
+            <field name="res_model">material.inspection.log</field>
+            <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Do Not Create Logs</p>
+        </field>
+    </record>
+
+    </data>
+</odoo>
+		
