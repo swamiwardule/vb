@@ -4876,7 +4876,10 @@ class SessionAuthenticationService(Component):
         # message = f"{current_user.name} has submitted the {category} for {project_name}/{tower_name}."
         # title = f"NC {seq_no} Submitted"
         # title = f"{current_user.name} has submitted the {category} for {project_name}/{tower_name}."
-        location_text = f"{project_name}/{tower_name}/{floor_name}/{flat_name}"
+        # location_text = f"{project_name}/{tower_name}/{floor_name}/{flat_name}"
+
+        parts = [project_name, tower_name, floor_name, flat_name]
+        location_text = "/".join([p for p in parts if p])
 
         message = f"{current_user.name} has submitted the {category} for {location_text}."
         title = f"{current_user.name} has submitted the {category} for {location_text}."
