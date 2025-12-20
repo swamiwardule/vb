@@ -133,9 +133,7 @@
         </field>
     </record>
 
-    <!-- <menuitem id="root_notification_log" name="Notification Log"  />
-    <menuitem id="menu_notification_log" name="Notification Log" parent="root_notification_log" action="action_open_app_notification_log" />
- -->
+    
 
          <record model="ir.ui.view" id="view_mi_checklist_form">
             <field name="name">mi.checklist.form</field>

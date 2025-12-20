@@ -4786,13 +4786,25 @@ class SessionAuthenticationService(Component):
             # Send notification to project responsible
             # if nc.project_responsible:
 
-            # 🔥 REMOVE maker notification when maker submits NC
-            if nc.project_responsible:
-                request.env['app.notification.log'].sudo().search([
-                    ('table_id', '=', nc.id),                 # same NC
-                    ('res_user_id', '=', nc.project_responsible.id),  # maker
-                    ('status', '=', 'sent')
-                ]).unlink()
+            # 🔕 Hide previous notification from Maker side after submit
+            try:
+                app_log_obj = request.env['app.notification.log'].sudo()
+
+                logs_to_hide = app_log_obj.search([
+                    ('table_id', '=', nc.id),                 # Same NC
+                    ('res_user_id', '=', request.env.user.id),# Maker (current user)
+                    ('hide_notification', '=', False),
+                ])
+
+                if logs_to_hide:
+                    logs_to_hide.write({'hide_notification': True})
+                    _logger.info(
+                        "Maker NC notifications hidden after submit: %s",
+                        logs_to_hide.ids
+                    )
+
+            except Exception as e:
+                _logger.error("Failed to hide maker NC notifications: %s", e)
 
 
             notification_status = self.send_close_notification(nc)
@@ -4942,12 +4954,26 @@ class SessionAuthenticationService(Component):
                 'approver_remark': approver_remark,
                 
             })
-            # 🔥 REMOVE approver notification when approver closes NC
-            request.env['app.notification.log'].sudo().search([
-                ('table_id', '=', nc.id),          # Same NC
-                ('res_user_id', '=', request.env.user.id),  # Current approver
-                ('status', '=', 'sent')
-            ]).unlink()
+            # 🔕 Hide approver notification after NC is closed
+            try:
+                app_log_obj = request.env['app.notification.log'].sudo()
+
+                logs_to_hide = app_log_obj.search([
+                    ('table_id', '=', nc.id),                     # Same NC
+                    ('res_user_id', '=', request.env.user.id),    # Current approver
+                    ('hide_notification', '=', False),
+                    ('status', '=', 'sent'),
+                ])
+
+                if logs_to_hide:
+                    logs_to_hide.write({'hide_notification': True})
+                    _logger.info(
+                        "Approver NC notifications hidden after close: %s",
+                        logs_to_hide.ids
+                    )
+
+            except Exception as e:
+                _logger.error("Failed to hide approver NC notifications: %s", e)
 
             for idx, img in enumerate(approver_close_images[:5]):
                 try:
@@ -5131,12 +5157,26 @@ class SessionAuthenticationService(Component):
                 'status': 'approver_reject',
                 'approver_remark': approver_remark
             })
-            # 🔥 REMOVE approver notification when approver reject NC
-            request.env['app.notification.log'].sudo().search([
-                ('table_id', '=', nc.id),          # Same NC
-                ('res_user_id', '=', request.env.user.id),  # Current approver
-                ('status', '=', 'sent')
-            ]).unlink()
+            # 🔕 Hide approver notification after NC reject (soft hide)
+            try:
+                app_log_obj = request.env['app.notification.log'].sudo()
+
+                logs_to_hide = app_log_obj.search([
+                    ('table_id', '=', nc.id),                     # Same NC
+                    ('res_user_id', '=', request.env.user.id),    # Current approver
+                    ('hide_notification', '=', False),
+                    ('status', '=', 'sent'),
+                ])
+
+                if logs_to_hide:
+                    logs_to_hide.write({'hide_notification': True})
+                    _logger.info(
+                        "Approver NC notifications hidden after reject: %s",
+                        logs_to_hide.ids
+                    )
+
+            except Exception as e:
+                _logger.error("Failed to hide approver NC notifications on reject: %s", e)
             # valid_images = [img for img in close_images if img and isinstance(img, (dict, str))]
 
             for idx, img in enumerate(close_images[:5]):
