@@ -70,8 +70,8 @@ class ManuallySetFlag(models.Model):
 
     rectified_image = fields.Binary('Rectified File')
     filename = fields.Char("filename")
-    description = fields.Text("Description")
-    overall_remarks = fields.Text("Overall Remark")
+    description = fields.Text("Checker/Approver Remarks")
+    overall_remarks = fields.Text("Maker Remark")
     approver_remark = fields.Text("Approver Remark")
     flag_category = fields.Selection([('Nc', 'NC'), ('Yellow Flag', 'Yellow Flag'), (
         'Orange Flag', 'Orange Flag'), ('Red Flag', 'Red Flag'), ('Green Flag', 'Green Flag')], string="Flag Category")
@@ -602,7 +602,7 @@ class ManuallySetFlagCloseImages(models.Model):
     )
 
     approver_image = fields.Binary(
-        'Reject Image',
+        'Approver Reject Image',
         required=True,
         attachment=True
     )
