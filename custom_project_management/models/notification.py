@@ -304,9 +304,14 @@ class AppNotification(models.Model):
                                                'res_user_id': user_id, 'player_id': player_id, 'message': message, 'table_id': obj.id, 'project_info_id': project_id, 'tower_id': tower_id, 'checklist_status': ck_status, 'checklist_status_two': ck_status_two})
                 return True
 
+        # except Exception as e:
+        #     _logger.info("---exception--------,%s", str(e))
+        #     pass
+
         except Exception as e:
-            _logger.info("---exception--------,%s", str(e))
-            pass
+            _logger.exception("Notification failed")
+            return {"success": False, "error": str(e)}
+
 
     @api.model
     def updateDetailsOfOneSignal(self, domain=None, fields=None, limit=None, userId=None, openId=None, id=None, token=None, context=None):

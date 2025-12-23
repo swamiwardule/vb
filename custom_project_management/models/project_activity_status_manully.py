@@ -53,11 +53,17 @@ class ManuallySetFlag(models.Model):
     )
     project_create_date = fields.Datetime('Date')
     project_responsible = fields.Many2one('res.users',string='Project Responsible', domain=lambda self: [('groups_id', 'in', self.env.ref('custom_project_management.group_quality_maker').id)]) 
-    cre_nc = fields.Integer('NC', readonly=True)
-    cre_yellow = fields.Integer('Yellow Flag', readonly=True)
-    cre_orange = fields.Integer('Orange Flag', readonly=True)
-    cre_red = fields.Integer('Red Flag', readonly=True)
-    cre_Green = fields.Integer('Green Flag', readonly=True)
+    # cre_nc = fields.Integer('NC', readonly=True)
+    # cre_yellow = fields.Integer('Yellow Flag', readonly=True)
+    # cre_orange = fields.Integer('Orange Flag', readonly=True)
+    # cre_red = fields.Integer('Red Flag', readonly=True)
+    # cre_Green = fields.Integer('Green Flag', readonly=True)
+    cre_nc = fields.Integer(compute="_compute_flag_counts", store=True)
+    cre_yellow = fields.Integer(compute="_compute_flag_counts", store=True)
+    cre_orange = fields.Integer(compute="_compute_flag_counts", store=True)
+    cre_red = fields.Integer(compute="_compute_flag_counts", store=True)
+    cre_Green = fields.Integer(compute="_compute_flag_counts", store=True)
+
     is_created = fields.Boolean(default=False)
     status = fields.Selection([('draft', 'Draft'), ('open', 'Open'), ('submit','Submit'),     
                               ('close', 'Close'),('approver_reject', 'Approver Rejected')], string="Status", default='draft')
@@ -100,6 +106,28 @@ class ManuallySetFlag(models.Model):
         string="Approver Close Images"
     )
 
+    @api.depends('flag_category', 'status')
+    def _compute_flag_counts(self):
+        for rec in self:
+            # Reset all counts
+            rec.cre_nc = 0
+            rec.cre_yellow = 0
+            rec.cre_orange = 0
+            rec.cre_red = 0
+            rec.cre_Green = 0
+
+            # Count ONLY if NOT closed
+            if rec.status != 'close':
+                if rec.flag_category == 'Nc':
+                    rec.cre_nc = 1
+                elif rec.flag_category == 'Yellow Flag':
+                    rec.cre_yellow = 1
+                elif rec.flag_category == 'Orange Flag':
+                    rec.cre_orange = 1
+                elif rec.flag_category == 'Red Flag':
+                    rec.cre_red = 1
+                elif rec.flag_category == 'Green Flag':
+                    rec.cre_Green = 1
 
 
     @api.constrains('image_ids', 'rectified_image_ids', 'approver_image_ids','approver_close_image_ids')
@@ -313,18 +341,18 @@ class ManuallySetFlag(models.Model):
     #             elif flag.flag_category == 'orange' and days_elapsed >= 14:
     #                 flag.write({'flag_category': 'red'})
 
-    @api.onchange('flag_category')
-    def _onchange_flag_category(self):
-        if self.flag_category == 'Nc':
-            self.cre_nc = (self.cre_nc or 0) + 1
-        elif self.flag_category == 'Yellow Flag':
-            self.cre_yellow = (self.cre_yellow or 0) + 1
-        elif self.flag_category == 'Orange Flag':
-            self.cre_orange = (self.cre_orange or 0) + 1
-        elif self.flag_category == 'Red Flag':
-            self.cre_red = (self.cre_red or 0) + 1
-        elif self.flag_category == 'Green Flag':
-            self.cre_Green = (self.cre_Green or 0) + 1
+    # @api.onchange('flag_category')
+    # def _onchange_flag_category(self):
+    #     if self.flag_category == 'Nc':
+    #         self.cre_nc = (self.cre_nc or 0) + 1
+    #     elif self.flag_category == 'Yellow Flag':
+    #         self.cre_yellow = (self.cre_yellow or 0) + 1
+    #     elif self.flag_category == 'Orange Flag':
+    #         self.cre_orange = (self.cre_orange or 0) + 1
+    #     elif self.flag_category == 'Red Flag':
+    #         self.cre_red = (self.cre_red or 0) + 1
+    #     elif self.flag_category == 'Green Flag':
+    #         self.cre_Green = (self.cre_Green or 0) + 1
 
     # @api.model
     # def create(self, vals):
@@ -972,8 +1000,8 @@ class ReportWizard(models.TransientModel):
                 "Recommended: Maximum 100 records per report."
             )
         
-        if total_count == 0:
-            raise UserError("No records found matching the criteria.")
+        # if total_count == 0:
+        #     raise UserError("No records found matching the criteria.")
         
         # Search with limit and order
         records = self.env['manually.set.flag'].search(

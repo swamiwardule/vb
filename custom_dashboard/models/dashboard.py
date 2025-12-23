@@ -62,7 +62,7 @@ class ProjectInfo(models.Model):
         _logger.info(
             "==============get_all_project_nc_count is called===========")
         all_projects = self.env['manually.set.flag'].search(
-            [('status', '=', 'open')]
+            [('status', 'in', ['open', 'submit'])]
         )
         total_nc_count = 0
         total_yellow_flag_count = 0
@@ -112,14 +112,25 @@ class ProjectInfo(models.Model):
 
                     matched_projects = self.env['manually.set.flag'].search([
                         ('project_info_id', '=', project.id),
-                        ('status', '=', 'open')
+                        ('status', 'in', ['open', 'submit'])
                     ])
+                    # for matched_project in matched_projects:
+                    #     nc_count += int(matched_project.cre_nc)
+                    #     yellow_flag_count += int(matched_project.cre_yellow)
+                    #     orange_flag_count += int(matched_project.cre_orange)
+                    #     red_flag_count += int(matched_project.cre_red)
+                    #     green_flag_count += int(matched_project.cre_Green)
                     for matched_project in matched_projects:
-                        nc_count += int(matched_project.cre_nc)
-                        yellow_flag_count += int(matched_project.cre_yellow)
-                        orange_flag_count += int(matched_project.cre_orange)
-                        red_flag_count += int(matched_project.cre_red)
-                        green_flag_count += int(matched_project.cre_Green)
+                        if matched_project.flag_category == 'Nc':
+                            nc_count += 1
+                        elif matched_project.flag_category == 'Yellow Flag':
+                            yellow_flag_count += 1
+                        elif matched_project.flag_category == 'Orange Flag':
+                            orange_flag_count += 1
+                        elif matched_project.flag_category == 'Red Flag':
+                            red_flag_count += 1
+                        elif matched_project.flag_category == 'Green Flag':
+                            green_flag_count += 1
 
                 vals = {
                     'nc_count': nc_count,
@@ -147,7 +158,7 @@ class ProjectInfo(models.Model):
                 green_flag_count = 0
 
                 matched_projects = self.env['manually.set.flag'].search(
-                    [('project_info_id', '=', project.id), ('status', '=', 'open')]
+                    [('project_info_id', '=', project.id), ('status', 'in', ['open', 'submit'])]
                 )
 
                 for matched_project in matched_projects:
@@ -528,13 +539,25 @@ class ProjectTower(models.Model):
                 green_flag_count = 0
 
                 matched_projects = self.env['manually.set.flag'].search(
-                    [('project_tower_id', '=', tower.id), ('status', '=', 'open')])
+                    [('project_tower_id', '=', tower.id), ('status', 'in', ['open', 'submit'])
+])
+                # for matched_project in matched_projects:
+                #     nc_count += int(matched_project.cre_nc)
+                #     yellow_flag_count += int(matched_project.cre_yellow)
+                #     orange_flag_count += int(matched_project.cre_orange)
+                #     red_flag_count += int(matched_project.cre_red)
+                #     green_flag_count += int(matched_project.cre_Green)
                 for matched_project in matched_projects:
-                    nc_count += int(matched_project.cre_nc)
-                    yellow_flag_count += int(matched_project.cre_yellow)
-                    orange_flag_count += int(matched_project.cre_orange)
-                    red_flag_count += int(matched_project.cre_red)
-                    green_flag_count += int(matched_project.cre_Green)
+                        if matched_project.flag_category == 'Nc':
+                            nc_count += 1
+                        elif matched_project.flag_category == 'Yellow Flag':
+                            yellow_flag_count += 1
+                        elif matched_project.flag_category == 'Orange Flag':
+                            orange_flag_count += 1
+                        elif matched_project.flag_category == 'Red Flag':
+                            red_flag_count += 1
+                        elif matched_project.flag_category == 'Green Flag':
+                            green_flag_count += 1
 
                 vals = {
                     'nc_count': nc_count,
@@ -583,7 +606,7 @@ class ProjectTower(models.Model):
                 green_flag_count = 0
 
                 matched_projects = self.env['manually.set.flag'].search(
-                    [('project_tower_id', '=', tower.id), ('status', '=', 'open')])
+                    [('project_tower_id', '=', tower.id), ('status', 'in', ['open', 'submit'])])
 
                 for matched_project in matched_projects:
                     nc_count += int(matched_project.cre_nc or 0)
@@ -670,13 +693,25 @@ class ProjectFloors(models.Model):
                 green_flag_count = 0
 
                 matched_projects = self.env['manually.set.flag'].search(
-                    [('project_floor_id', '=', project.id), ('status', '=', 'open')])
+                    [('project_floor_id', '=', project.id), ('status', 'in', ['open', 'submit'])
+])
+                # for matched_project in matched_projects:
+                #     nc_count += int(matched_project.cre_nc)
+                #     yellow_flag_count += int(matched_project.cre_yellow)
+                #     orange_flag_count += int(matched_project.cre_orange)
+                #     red_flag_count += int(matched_project.cre_red)
+                #     green_flag_count += int(matched_project.cre_Green)
                 for matched_project in matched_projects:
-                    nc_count += int(matched_project.cre_nc)
-                    yellow_flag_count += int(matched_project.cre_yellow)
-                    orange_flag_count += int(matched_project.cre_orange)
-                    red_flag_count += int(matched_project.cre_red)
-                    green_flag_count += int(matched_project.cre_Green)
+                        if matched_project.flag_category == 'Nc':
+                            nc_count += 1
+                        elif matched_project.flag_category == 'Yellow Flag':
+                            yellow_flag_count += 1
+                        elif matched_project.flag_category == 'Orange Flag':
+                            orange_flag_count += 1
+                        elif matched_project.flag_category == 'Red Flag':
+                            red_flag_count += 1
+                        elif matched_project.flag_category == 'Green Flag':
+                            green_flag_count += 1
 
             vals = {
                 'nc_count': nc_count,
@@ -764,13 +799,25 @@ class ProjectFlats(models.Model):
 
             for project in projects:
                 matched_projects = self.env['manually.set.flag'].search(
-                    [('project_flats_id', '=', project.id), ('status', '=', 'open')])
+                    [('project_flats_id', '=', project.id), ('status', 'in', ['open', 'submit'])
+])
+                # for matched_project in matched_projects:
+                #     nc_count += int(matched_project.cre_nc)
+                #     yellow_flag_count += int(matched_project.cre_yellow)
+                #     orange_flag_count += int(matched_project.cre_orange)
+                #     red_flag_count += int(matched_project.cre_red)
+                #     green_flag_count += int(matched_project.cre_Green)
                 for matched_project in matched_projects:
-                    nc_count += int(matched_project.cre_nc)
-                    yellow_flag_count += int(matched_project.cre_yellow)
-                    orange_flag_count += int(matched_project.cre_orange)
-                    red_flag_count += int(matched_project.cre_red)
-                    green_flag_count += int(matched_project.cre_Green)
+                        if matched_project.flag_category == 'Nc':
+                            nc_count += 1
+                        elif matched_project.flag_category == 'Yellow Flag':
+                            yellow_flag_count += 1
+                        elif matched_project.flag_category == 'Orange Flag':
+                            orange_flag_count += 1
+                        elif matched_project.flag_category == 'Red Flag':
+                            red_flag_count += 1
+                        elif matched_project.flag_category == 'Green Flag':
+                            green_flag_count += 1
 
             vals = {
                 'nc_count': nc_count,
