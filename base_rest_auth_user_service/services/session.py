@@ -3803,6 +3803,14 @@ class SessionAuthenticationService(Component):
           
             _logger.info("Received JSON request: %s", data)
            
+            project_info_id = int(data.get('project_id')) if data.get('project_id') else None
+
+            if not project_info_id:
+                return {
+                    'status': 'FAILED',
+                    'message': 'project_id is required'
+                }, 400
+
 
             _logger.info("POST API for NC creation called")
             # _logger.info("=" * 80)
@@ -5615,7 +5623,7 @@ class SessionAuthenticationService(Component):
                 for img in nc.approver_close_image_ids:   
                     approver_close_image_urls.append({
                         'id': img.id,
-                        'url': f"/web/image/manually.set.flag.approver.close.images/{img.id}/approver_image",
+                        'url': f"/web/image/manually.set.flag.approver.close.images/{img.id}/approver_close_img",
                         'filename': img.filename or 'approver_close_img.jpg'
                     })
                 
@@ -5733,7 +5741,7 @@ class SessionAuthenticationService(Component):
             for img in nc.approver_close_image_ids:   
                 approver_close_image_urls.append({
                     'id': img.id,
-                    'url': f"/web/image/manually.set.flag.approver.close.images/{img.id}/approver_image",
+                    'url': f"/web/image/manually.set.flag.approver.close.images/{img.id}/approver_close_img",
                     'filename': img.filename or 'approver_close_img.jpg'
                 })
 
