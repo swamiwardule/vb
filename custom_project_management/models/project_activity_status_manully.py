@@ -37,6 +37,7 @@ class ManuallySetFlagWizard(models.TransientModel):
 class ManuallySetFlag(models.Model):
     _name = 'manually.set.flag'
     _description = "ManuallySetFlag"
+    _order = 'id desc'
 
     project_info_id = fields.Many2one('project.info')
     project_tower_id = fields.Many2one('project.tower', ondelete='set null')

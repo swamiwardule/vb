@@ -496,6 +496,53 @@ class ProjectInfo(models.Model):
         project_data['tower_data'] = tower_lst
         return project_data
 
+    # def get_project_nc_data(self, project_id):
+    #     project = self.env['project.info'].browse(project_id)
+    #     if not project:
+    #         return {}
+
+    #     Flag = self.env['manually.set.flag']
+
+    #     base_domain = [
+    #         ('project_info_id', '=', project.id),
+    #         ('status', '!=', 'close')
+    #     ]
+
+    #     project_data = {
+    #         'project_name': project.name,
+    #         'project_id': project.id,
+
+    #         # ✅ NC (just like others)
+    #         'nc_count': Flag.search_count(
+    #             base_domain + [('flag_category', '=', 'Nc')]
+    #         ),
+
+    #         # ✅ Other flags
+    #         'yellow_flag_count': Flag.search_count(
+    #             base_domain + [('flag_category', '=', 'Yellow Flag')]
+    #         ),
+    #         'orange_flag_count': Flag.search_count(
+    #             base_domain + [('flag_category', '=', 'Orange Flag')]
+    #         ),
+    #         'red_flag_count': Flag.search_count(
+    #             base_domain + [('flag_category', '=', 'Red Flag')]
+    #         ),
+    #         'green_flag_count': Flag.search_count(
+    #             base_domain + [('flag_category', '=', 'Green Flag')]
+    #         ),
+    #     }
+
+    #     tower_lst = []
+    #     for line in project.project_info_tower_line_temp:
+    #         if line.tower_id:
+    #             tower_lst.append({
+    #                 'tower_name': line.tower_id.name,
+    #                 'tower_id': line.tower_id.id
+    #             })
+
+    #     project_data['tower_data'] = tower_lst
+    #     return project_data
+
 
 
     # /get/project/tower/nc
